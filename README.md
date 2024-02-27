@@ -4,6 +4,8 @@
 
 A set of functions to compute Mahalanobis D (D**2) on multimodal MRI images in a group of individuals in comparison to a reference group or within a single individual.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10713027.svg)](https://doi.org/10.5281/zenodo.10713027)
+
 Reference:
 ```
 Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (under review) MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics (submitted)
