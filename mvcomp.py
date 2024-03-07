@@ -66,6 +66,71 @@ def compute_average(ids, in_dir, out_dir,features=[],feature_suffix=".nii.gz", v
         print("------------------------------")
     print(f"averages saved to {out_dir}")
 
+def compute_average_simplified(model_feature_images_fname_list, out_dir, model_feature_list=None,verbose=0):
+    """
+    Refactored simplified version to work with lists only and return a list of the created averages
+    
+    Computes averages (to be used as reference) for each feature based on selected subject IDs.
+    
+    Args:
+        model_feature_images_fname_list (list): list of lists, where the first dimension (outer) is subject and the second (inner) is feature
+                                                all features must be in the same order for each individual
+        model_feature_list (list): list of feature names for input features, when None (default) will generate a list of indices starting at 00
+                                    must be in the same order as those for the individual, or files will be incorrectly labeled
+        out_dir (string): output directory to save average images in
+        model_feature_list (list of strings): list of features names (e.g., FA)
+        verbose (int): level of verbosity. 0 = only important steps, 1 = more detailed.
+
+    Returns:
+        model_feature_average_images_fname_list (list): full paths to feature average images, in same order as input
+                                                        of form <out_dir>_<feature_name>_numFeatures_average.nii.gz
+    """
+    
+    num_features = len(model_feature_images_fname_list[0])
+
+    
+    model_feature_average_images_fname_list = []
+
+    if model_feature_list is None:
+        zfill_num = len(str(num_features))+1
+        model_feature_list = np.arange(num_features).astype(str) #if not provided, we just have values
+        feature_names = [_ff.zfill(zfill_num) for _ff in model_feature_list]
+    else:    
+        feature_names = model_feature_list
+    print(f"features are {feature_names}")
+    print("================================")
+
+        
+    for _idx in range(num_features): #iterate over features
+        if verbose > 0:
+            print(f"Feature {_idx}")
+            
+        #get all the filenames of the first feature
+        fnames = [_ff[_idx] for _ff in model_feature_images_fname_list]
+        if verbose > 0:
+            print(f"Found {len(fnames)} {feature_names[_idx]} files, concatenating")    
+        
+        _imgs = nb.concat_images(fnames)
+        _imgs_data = _imgs.get_fdata()
+        print(f"shape of concatenated images is {_imgs_data.shape}")
+        if verbose > 0 :
+            print(f"computing mean on the 4th axis, for {_imgs_data.shape[3]} subjects")
+            
+        _model_data = np.mean(_imgs_data,axis=-1)
+        if verbose > 0:
+            print(f"shape of the average image is {_model_data.shape}")
+        
+        _model_img = nb.Nifti2Image(_model_data, _imgs.affine, _imgs.header)
+        
+        if verbose > 0:
+            print(f"saving to {out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz")
+        full_fname = f"{out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz"
+        nb.save(_model_img, full_fname)
+        model_feature_average_images_fname_list.append(full_fname)
+        print("------------------------------")
+    print(f"Averages saved to {out_dir}")
+    return model_feature_average_images_fname_list
+
 
 def feature_list(feature_in_dir, suffix_name, remove_list=[]):
     """
