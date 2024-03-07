@@ -52,6 +52,12 @@ Depending on the application, a different set of functions should be used. See c
 
 # Extras
 
+## Simplified calling based only on lists of lists of filenames
+
+While the core functionality is based around a filename and data storage structure that _should_ help to reduce human error when using these functions, additional versions of two of the main functions (`compute_average` and `model_comp`) have also been implemented in a simplified form that is based on lists of lists (subject X feature). These functions have _little to no error-checking_ and have no way to ensure that the correct data has been input in the correct order - this is the responsibility of the user. These functions are more flexible and can be used for data stored in any accessible location and with any filename convention (while still relying on nibabel readable objects) and have fewer required inputs to simplify the workflow for users who are familiar with the approach, but the user should take care to ensure that the **ordering of inputs is correct and consistent across calls**.
+- `compute_average_simplified` : takes a list (subjects) of lists (features), otherswise works identically to `compute_average`. Feature names will be auto-generated as indices if not provided.
+- `model_comp_simplified` : takes a list (subjects) of lists (features), otherswise core functionality works identically to `model_comp`. Leave-one-out D2 computations is supported by not specifying a list of model features for input. Subject IDs will be auto-generated as indices if not provided.
+
 ## Code examples
 - jupyter notebooks in `./examples/*.ipynb`
 
