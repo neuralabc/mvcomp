@@ -52,6 +52,10 @@ Depending on the application, a different set of functions should be used. See c
 
 - `voxel2voxel_dist` : To compute D2 between each voxel and all other voxels in a mask. Yields a symmetric 2-D matrix of size n voxels x n voxels containing D2 values between each pair of voxels.
 
+## Dependencies
+
+The `mvcomp` core functionality requires only `numpy`, `matplotlib`, `nibabel`, and `nilearn`.
+
 # Extras
 
 ## Simplified calling based only on lists of lists of filenames
