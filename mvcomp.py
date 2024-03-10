@@ -590,7 +590,7 @@ def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_
         model_feature_image_fname_list (list, optional): List of feature average images for use as model. Defaults to None.
         return_raw (bool, optional): If True, also returns raw distances. Defaults to False.
         mask (nibabel.image, optional): A nibabel object of the mask or path to nibabel convertable object. 
-                                        Defaults to None. If None, mask is generated based on first input feature.
+                                        Defaults to None. If None, mask is generated based on first input feature for each subject (likely not ideal).
         mask_threshold (float, optional): Threshold cutoff for mask. Defaults to 0.
         verbosity (int, optional): Controls how much output is printed to standard out. Defaults to 1.
 
