@@ -160,7 +160,7 @@ def feature_list(feature_in_dir, suffix_name, remove_list=[]):
 
 
 def feature_gen(feature_image_fname_list, feature_in_dir=None, mask_image_fname=None, mask_image=None, verbosity=0,
-                mask_threshold=0):
+                mask_threshold=0, smooth_fwhm=None):
     """
     Creates a 2D feature matrix of size (number of voxels) x (number of features) from a set of images (often used on reference images)
     Args:
@@ -170,13 +170,22 @@ def feature_gen(feature_image_fname_list, feature_in_dir=None, mask_image_fname=
         mask_image (nibabel object): nibabel object of the mask
         verbosity (int): if not zero, it prints additional information 
         mask_threshold (float): a number in the range of 0-1 that determines the threshold to apply on non-binarized mask.  
-    
+        smooth_fwhm (float, optional): Controls fwhm of smoothing kernel used to smooth input images. Requires working nilearn installation. Defaults to None.
+
     Returns:
         feature_mat (numpay.ndarray): 2D feature matrix in the shape of (number of voxels) x (number of features)
         mask_img (nibabel object): In the case that we have mask_image as input it is the same as that, otherwise, it is the nibabel object of mask_image_fname.
         feature_mat_vec_mask (numpy boolian array): Lookup vector of size (number of voxels) that is zero(False) where there are nans or infs. 
     
     """
+
+    if smooth_fwhm is not None:
+        try:
+            from nilearn.image import smooth_img
+        except:
+            print("You have selected smoothing but nilearn.image.smooth_img does not appear to be available. Please install or set smoothing to None")
+            return None
+
     feature_dict = {}
     if feature_in_dir is None:
         feature_in_dir = ""
@@ -198,7 +207,11 @@ def feature_gen(feature_image_fname_list, feature_in_dir=None, mask_image_fname=
                 mask = feature_img.get_fdata() != 0  # assume only zeros will become mask
         mask_img = nb.Nifti1Image(mask, affine=feature_img.affine,
                                   header=feature_img.header)  # overwrite the mask image, since we may have a new threshold
-        feature_data = feature_img.get_fdata()[mask]
+        if smooth_fwhm is not None:
+            feature_data = smooth_img(feature_img,smooth_fwhm).get_fdata()[mask]
+        else:
+            feature_data = feature_img.get_fdata()[mask]
+        
         feature_dict[feature_image_fname] = feature_data
         if idx == 0:
             feature_mat_vec_mask = np.zeros(mask.sum())  # a mask for out of bounds data (nan and inf)
@@ -571,7 +584,7 @@ def dist_plot(all_dist, all_mask, subject_ids, feat_sub=[], save_results=True, o
         print('data has been saved to output directory: {}'.format(result_dir))
 
 def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_list=None,model_feature_image_fname_list=None, 
-                          return_raw=False,mask=None,mask_threshold=0,verbosity=1):
+                          return_raw=False,mask=None,mask_threshold=0,verbosity=1,smooth_fwhm=None):
     """
     Simplified version of model_comp to work with list of lists as input. 
     Each feature must be in the same order for each participant and in the same order as the model.
@@ -593,6 +606,7 @@ def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_
                                         Defaults to None. If None, mask is generated based on first input feature for each subject (likely not ideal).
         mask_threshold (float, optional): Threshold cutoff for mask. Defaults to 0.
         verbosity (int, optional): Controls how much output is printed to standard out. Defaults to 1.
+        smooth_fwhm (float, optional): Controls fwhm of smoothing kernel used to smooth input images. Requires working nilearn installation. Defaults to None.
 
     Returns:
         dict with the following
@@ -604,6 +618,13 @@ def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_
             'raw_dist' (numpy.ndarray): if return_raw=True. 3D array of size (number of voxels) x (number of features) x (number of subjects) that contains the voxel-wise raw distances for each feature
         }
     """
+    if smooth_fwhm is not None:
+        try:
+            from nilearn.image import smooth_img
+        except:
+            print("You have selected smoothing but nilearn.image.smooth_img does not appear to be available. Please install or set smoothing to None")
+            return None
+    
     num_subjects = len(comp_images_fname_list)
     num_features = len(comp_images_fname_list[0])
     
