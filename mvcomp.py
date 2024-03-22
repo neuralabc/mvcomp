@@ -232,13 +232,13 @@ def feature_gen(feature_image_fname_list, feature_in_dir=None, mask_image_fname=
     return feature_mat, mask_img, feature_mat_vec_mask  # returns original or computed mask img and a vector lookup for good data (non nan/inf)
 
 
-def norm_covar_inv(feature_mat, mask=None):
+def norm_covar_inv(feature_mat, mask=None, regularization_value=1e-6):
     """
     Computes the covariance of the model and returns its pseudo-inverse (Moore-Penrose)
     Args:
         feature_mat (numpay.ndarray): 2D feature matrix in the shape of (number of voxels) x (number of features)
         mask (numpy array): A vector that works as a mask (nan/inf = 0 otherwise = 1). If not provided, the pseudo-inverse will be computed on the entire feature matrix
-                            
+        regularization_value: Amount to be added to the diagonal of the covariance matrix               
     Returns:
         s (numpy array): covariance matrix of size (number of features) x (number of features)
         pinv_s (numpy array): pseudo-inverse of the covariance matrix.
@@ -252,6 +252,9 @@ def norm_covar_inv(feature_mat, mask=None):
         feature_masked = feature_mat
     # compute covariance matrix across dimensions, within mask
     s = np.cov(feature_masked.T)
+    if np.any(np.isnan(s)) or np.any(np.isinf(s)):
+        print("Warning: NaNs or Infs found in the covariance matrix!")
+    s += np.eye(s.shape[0]) * regularization_value #regularization
     pinv_s = np.linalg.pinv(s)
     return s, pinv_s  # return pinv of covariance matrix and cov mat
 
