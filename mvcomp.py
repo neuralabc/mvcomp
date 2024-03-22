@@ -66,7 +66,7 @@ def compute_average(ids, in_dir, out_dir,features=[],feature_suffix=".nii.gz", v
         print("------------------------------")
     print(f"averages saved to {out_dir}")
 
-def compute_average_simplified(model_feature_images_fname_list, out_dir, model_feature_list=None,verbose=0):
+def compute_average_simplified(model_feature_images_fname_list, out_dir, model_feature_list=None,verbose=0,smooth_fwhm=None):
     """
     Refactored simplified version to work with lists only and return a list of the created averages. 
     Each feature must be in the same order for each participant and in the same order as the model.
@@ -86,6 +86,13 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
         model_feature_average_images_fname_list (list): full paths to feature average images, in same order as input
                                                         of form <out_dir>_<feature_name>_numFeatures_average.nii.gz
     """
+
+    if smooth_fwhm is not None:
+        try:
+            from nilearn.image import smooth_img
+        except:
+            print("You have selected smoothing but nilearn.image.smooth_img does not appear to be available. Please install or set smoothing to None")
+            return None
     
     num_features = len(model_feature_images_fname_list[0])
 
@@ -117,6 +124,8 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
         if verbose > 0 :
             print(f"computing mean on the 4th axis, for {_imgs_data.shape[3]} subjects")
             
+        #TODO: add smoothing code here if fwhm is not None
+        #TODO: change the output filename?
         _model_data = np.mean(_imgs_data,axis=-1)
         if verbose > 0:
             print(f"shape of the average image is {_model_data.shape}")
@@ -659,7 +668,8 @@ def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_
         m_f_mat, mask_img, mat_mask = feature_gen(model_feature_image_fname_list,
                                                 mask_image_fname=mask_f,
                                                 mask_image=mask_img,
-                                                mask_threshold=mask_threshold)
+                                                mask_threshold=mask_threshold,
+                                                smooth_fwhm=smooth_fwhm)
 
         # compute the covariance and invert it, since we need to compute only once
         # this will be used below
@@ -682,7 +692,8 @@ def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_
         st = time.time()
 
         c_f_mat, _, sub_mat_mask = feature_gen(comp_image_fname_list, mask_image_fname=mask_f,mask_image=mask_img,
-                                                mask_threshold=mask_threshold)  # extract features for this individual
+                                                mask_threshold=mask_threshold,
+                                                smooth_fwhm=smooth_fwhm)  # extract features for this individual
 
         if idx == 0:
             if exclude_comp_from_mean_cov: #we have not defined the output matrices yet in this case, so define here
