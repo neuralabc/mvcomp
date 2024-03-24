@@ -123,10 +123,10 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
         #smooth the data if requested
         if smooth_fwhm is not None:
             _imgs_data = smooth_img(_imgs,fwhm=smooth_fwhm).get_fdata()
-            fname_out_smooth = f's{str(smooth_fwhm).replace(".","p")}_'
+            fname_out_smooth_tag = f's{str(smooth_fwhm).replace(".","p")}_'
         else:
             _imgs_data = _imgs.get_fdata()
-            fname_out_smooth = ''
+            fname_out_smooth_tag = ''
         
         _model_data = np.mean(_imgs_data,axis=-1)
         
@@ -142,7 +142,7 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
         
         if verbose > 0:
             print(f"saving to {out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz")
-        full_fname = f"{out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_{fname_out_smooth}average.nii.gz"
+        full_fname = f"{out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_{fname_out_smooth_tag}average.nii.gz"
         nb.save(_model_img, full_fname)
         model_feature_average_images_fname_list.append(full_fname)
         print("------------------------------")
@@ -225,12 +225,7 @@ def feature_gen(feature_image_fname_list, feature_in_dir=None, mask_image_fname=
         mask_img = nb.Nifti1Image(mask, affine=feature_img.affine,
                                   header=feature_img.header)  # overwrite the mask image, since we may have a new threshold
         if smooth_fwhm is not None:
-            feature_data = smooth_img(feature_img,smooth_fwhm).get_fdata()[mask]
-        else:
-            feature_data = feature_img.get_fdata()[mask]
-        
-        feature_dict[feature_image_fname] = feature_data
-        if idx == 0:
+            feature_data = smooth_img(feature_img,fwhm=smooth_fwhm).get_fdata()[mask]
             feature_mat_vec_mask = np.zeros(mask.sum())  # a mask for out of bounds data (nan and inf)
 
     # construct the feature matrix
@@ -733,10 +728,10 @@ def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_
     # if we did not, raw_dist only contains the distance (2d)
     if return_raw:
         all_dist = raw_dist.sum(axis=1)
-        results = {'all_dist': all_dist, 'all_mask': all_mask, 'subject_ids': subject_ids, 'feature_names': model_feature_list, "raw_dist": raw_dist}
+        results = {'all_dist': all_dist, 'all_mask': all_mask, 'subject_ids': subject_ids, 'feature_names': model_feature_list, "raw_dist": raw_dist, "smooth_fwhm": smooth_fwhm}
     else:
         all_dist = raw_dist
-        results = {'all_dist': all_dist, 'all_mask': all_mask, 'subject_ids': subject_ids, 'feature_names': model_feature_list}
+        results = {'all_dist': all_dist, 'all_mask': all_mask, 'subject_ids': subject_ids, 'feature_names': model_feature_list, "smooth_fwhm": smooth_fwhm}
 
     return results
 
