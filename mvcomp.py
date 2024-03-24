@@ -226,7 +226,12 @@ def feature_gen(feature_image_fname_list, feature_in_dir=None, mask_image_fname=
                                   header=feature_img.header)  # overwrite the mask image, since we may have a new threshold
         if smooth_fwhm is not None:
             feature_data = smooth_img(feature_img,fwhm=smooth_fwhm).get_fdata()[mask]
-            feature_mat_vec_mask = np.zeros(mask.sum())  # a mask for out of bounds data (nan and inf)
+        else:
+            feature_data = feature_img.get_fdata()[mask]
+        feature_dict[feature_image_fname] = feature_data
+        if idx == 0:
+            feature_mat_vec_mask = np.zeros(mask.sum())  # a mask for out of bounds data (nan and inf)        
+
 
     # construct the feature matrix
     feature_mat = np.zeros((feature_data.shape[0], len(feature_dict.keys())))
