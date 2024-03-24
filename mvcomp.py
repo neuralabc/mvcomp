@@ -119,14 +119,22 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
             print(f"Found {len(fnames)} {feature_names[_idx]} files, concatenating")    
         
         _imgs = nb.concat_images(fnames)
-        _imgs_data = _imgs.get_fdata()
+        
+        #smooth the data if requested
+        if smooth_fwhm is not None:
+            _imgs_data = smooth_img(_imgs,fwhm=smooth_fwhm).get_fdata()
+            fname_out_smooth = f's{str(smooth_fwhm).replace(".","p")}_'
+        else:
+            _imgs_data = _imgs.get_fdata()
+            fname_out_smooth = ''
+        
+        _model_data = np.mean(_imgs_data,axis=-1)
+        
         print(f"shape of concatenated images is {_imgs_data.shape}")
         if verbose > 0 :
             print(f"computing mean on the 4th axis, for {_imgs_data.shape[3]} subjects")
             
-        #TODO: add smoothing code here if fwhm is not None
-        #TODO: change the output filename?
-        _model_data = np.mean(_imgs_data,axis=-1)
+        
         if verbose > 0:
             print(f"shape of the average image is {_model_data.shape}")
         
@@ -134,7 +142,7 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
         
         if verbose > 0:
             print(f"saving to {out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz")
-        full_fname = f"{out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz"
+        full_fname = f"{out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_{fname_out_smooth}average.nii.gz"
         nb.save(_model_img, full_fname)
         model_feature_average_images_fname_list.append(full_fname)
         print("------------------------------")
