@@ -81,6 +81,8 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
         out_dir (string): output directory to save average images in
         model_feature_list (list of strings): list of features names (e.g., FA)
         verbose (int): level of verbosity. 0 = only important steps, 1 = more detailed.
+        smooth_fwhm (float, optional): Controls fwhm of smoothing kernel used to smooth input images. Requires working nilearn installation. Defaults to None.
+
 
     Returns:
         model_feature_average_images_fname_list (list): full paths to feature average images, in same order as input
