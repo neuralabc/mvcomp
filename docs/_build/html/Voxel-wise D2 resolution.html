@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Comparisons within a single subject – Voxel-wise D2 resolution &#8212; MVComp 0.9.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=0e439607"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Comparisons within a single subject – Voxel-voxel matrix D2 resolution" href="Voxel-voxel%20matrix%20D2%20resolution.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="comparisons-within-a-single-subject-voxel-wise-d2-resolution">
+<h1>Comparisons within a single subject – Voxel-wise D2 resolution<a class="headerlink" href="#comparisons-within-a-single-subject-voxel-wise-d2-resolution" title="Link to this heading">¶</a></h1>
+<ul>
+<li><p><strong>feature_gen</strong>: Provide the path of the images (i.e., one image per metric) and the reference ROI mask to this function to extract the feature matrix (m_f_mat of shape n voxels x n features), a mask vector (mat_mask of shape n voxels) and a nibabel object of the mask (mask_img). This function can also be used to extract the data inside the ROI of voxels to be evaluated.</p></li>
+<li><p><strong>norm_covar_inv</strong>: To compute the covariance matrix (s) and its pseudoinverse (pinv_s) from the reference feature and mask matrices (m_f_mat and mat_mask).</p></li>
+<li><p><strong>correlation_fig</strong>: To generate a correlation matrix figure from the covariance matrix (s). For visualization.</p></li>
+<li><dl>
+<dt><strong>mah_dist_mat_2_roi</strong>: To compute voxel-wise D2 between all voxels within a mask and a specific reference ROI. The user will need to provide a vector of data for the reference ROI (i.e., mean across voxels in the ROI for each metric), along with the feature matrix containing the data for the voxels to be evaluated.</dt><dd><p>*`mah_dist_mat_2_roi` with <cite>return_raw</cite> set to True : To extract features’ contributions. The output will be of shape (number of voxels) x (number of metrics).
+Args:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>feature_mat</cite> (numpy.ndarray): 2D array of size (number of voxels) X (number of features) that we want to compute D2 over.</p></li>
+<li><p><cite>roi_feature_vec</cite> (numpy.ndarray): 1D array of size (number of features) containing ROI-averaged feature values (reference).</p></li>
+<li><p><cite>pinv_s</cite> (numpy.ndarray): pseudo-inverse of the covariance matrix of size (number of features) x (number of features)</p></li>
+<li><p><cite>return_raw</cite> (boolean): If it is false the function returns D2, otherwise, it returns raw distances (one distance value for each feature).</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt><cite>results</cite> (dict):</dt><dd><dl class="simple">
+<dt>if return_raw is True:</dt><dd><p>all_dist (numpy array): A 1D array of size (number of voxels) containing D2 values between two feature matrices.
+and
+raw_dist (numpy.ndarray): 2D array of size (number of voxels) x (number of features) that contains raw distances for each feature.</p>
+</dd>
+<dt>otherwise:</dt><dd><p>all_dist (numpy array): A 1D array of size (number of voxels) containing D2 values between two feature matrices.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+</ul>
+<hr class="docutils" />
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MVComp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Combining%20MRI%20metrics.html">Comparisons between subject(s) and a reference – Combining MRI metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Combining%20spatial%20dimensions.html">Comparisons between subject(s) and a reference – Combining spatial dimensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Voxel-voxel%20matrix%20D2%20resolution.html">Comparisons within a single subject – Voxel-voxel matrix D2 resolution</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Comparisons within a single subject – Voxel-wise D2 resolution</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Voxel-voxel%20matrix%20D2%20resolution.html" title="previous chapter">Comparisons within a single subject – Voxel-voxel matrix D2 resolution</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, NeuralABC, steelec, stremblay18, zklsmr.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/Voxel-wise D2 resolution.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
