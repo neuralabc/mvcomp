@@ -18,7 +18,7 @@ and a distribution D (i.e. the distribution of the same MRI features in a refere
 The Mahalanobis Distance is a generalization of the Euclidean Distance that takes into account the covariance of the data, which is important given 
 the high correlation between MRI-derived microstructural measures. 
 
-The frameworks can also be used to integrate spatial information using a single MRI measure (e.g., FA across several white matter tracts). 
+The framework can also be used to integrate spatial information using a single MRI measure (e.g., FA across several white matter tracts). 
 
 For a detailed description of how D\ :sup:`2` can be applied to neuroimaging data, please refer to our paper:
 
@@ -27,11 +27,13 @@ For a detailed description of how D\ :sup:`2` can be applied to neuroimaging dat
         Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
         BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 
+You will also find detailed steps for different use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html 
+
 =================================
 --------------
 **Installation**
 --------------
-To install `mvcomp`, you can clone the repository from GitHub and add the path to the package in your python script:
+To install MVComp, you can clone the repository from GitHub and add the path to the package in your python script:
 
 to clone: 
 
@@ -65,7 +67,7 @@ Here's an example of how to use MVComp if your data is ready and you wish to com
     print(result)
 
 Here, `feature_in_dir` is the path to the directory containing the MRI feature maps of all subjects and `model_dir` is the path to the directory containing the reference maps (to which each subject will be compared). You will also need to provide a mask to which you can apply a threshold using `mask_threshold`. To implement the leave-one-subject-out approach so that the subject under evaluation is excluded from D2 calculation, set `exclude_comp_from_mean_cov` to True. In this case, `model_dir` is not needed.
-You will obtain a D2 matrix of size number of voxels x number of subjects.
+The output `result` is a dictionary containing a D2 matrix (`all_dist`) of size number of voxels x number of subjects.
 
 The data must be organized as such:
 
@@ -84,14 +86,16 @@ Example:
     /my_project/average_reference_group/FA_warped_to_group_average.nii.gz
     /my_project/average_reference_group/MD_warped_to_group_average.nii.gz
 
-    Arguments would thus be:
-    feature_in_dir = "/my_project/processed_maps/"
-    suffix_name_comp = "_warped_to_group.nii.gz"
-    model_dir = "/my_project/average_reference_group/"
-    suffix_name_model = "_warped_to_group_average.nii.gz"
+    Args would thus be:
+    - feature_in_dir = "/my_project/processed_maps/"
+    - suffix_name_comp = "_warped_to_group.nii.gz"
+    - model_dir = "/my_project/average_reference_group/"
+    - suffix_name_model = "_warped_to_group_average.nii.gz"
     
 
-For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group, click here. You will also find detailed steps for other use cases here.  
+For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group: https://mvcomp.readthedocs.io/en/latest/UserGuide/Combining_MRI_metrics.html 
+
+You will also find detailed steps for other use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html  
 
 
 **Reference Us!**
