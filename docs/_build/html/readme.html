@@ -18,8 +18,7 @@
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Multivariate Comparisons (MVComp)" href="FirstLevel/index.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -30,7 +29,7 @@
 
           
           
-          <a href="#" class="icon icon-home">
+          <a href="index.html" class="icon icon-home">
             MVComp
           </a>
 <div role="search">
@@ -41,29 +40,37 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="FirstLevel/index.html"><strong>Multivariate Comparisons (MVComp)</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="UserGuide/index.html">Steps to follow depending on your use case and data</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><strong>Multivariate Comparisons (MVComp)</strong></a><ul>
+<li><a class="reference internal" href="#installation"><strong>Installation</strong></a><ul>
+<li><a class="reference internal" href="#quick-start"><strong>Quick Start</strong></a></li>
+<li><a class="reference internal" href="#use-cases-and-their-functions"><strong>Use Cases and their Functions</strong></a></li>
+<li><a class="reference internal" href="#reference-us"><strong>Reference Us!</strong></a></li>
+<li><a class="reference internal" href="#contribute"><strong>Contribute</strong></a></li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
+</div>
         </div>
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">MVComp</a>
+          <a href="index.html">MVComp</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active"><strong>Multivariate Comparisons (MVComp)</strong></li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -73,35 +80,21 @@
              
   <section id="multivariate-comparisons-mvcomp">
 <h1><strong>Multivariate Comparisons (MVComp)</strong><a class="headerlink" href="#multivariate-comparisons-mvcomp" title="Link to this heading">¶</a></h1>
-<p id="module-mvcomp">A set of functions to compute the Mahalanobis Distance (D<sup>2</sup>)
-on MRI images in a group of individuals in comparison to a reference group or within a single individual.</p>
-<p>Tha Mahalanobis Distance (D<sup>2</sup>) is a measure of the distance between a point P (i.e. an MRI feature in a voxel or an ROI)
-and a distribution D (i.e. the distribution of the same MRI feature in a reference group/another ROI).
-The Mahalanobis Distance is a generalization of the Euclidean Distance that takes into account the covariance of the data, which is important given
-the high correlation between MRI-derived microstructural measures.</p>
-<p>For a detailed description of how D<sup>2</sup> can applied to neuroimaging data, please refer to the our paper:</p>
-<blockquote>
-<div><div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
-BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
-</pre></div>
-</div>
-</div></blockquote>
+<p id="module-mvcomp">A set of functions to compute the Mahalanobis Distance (D<sup>2</sup>) on MRI images in a group of individuals in comparison to a reference group or within a single individual.</p>
 <section id="installation">
 <h2><strong>Installation</strong><a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<p>To install <cite>mvcomp</cite>, you can clone the repository from GitHub and add the path to the package in your python script:</p>
-<p>to clone:</p>
+<p>To install <cite>mvcomp</cite>, you can use pip:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/neuralabc/mvcomp.git
 </pre></div>
 </div>
-<p>and in your python script:</p>
+<p>and in your python script</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;path/to/mvcomp&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">mvcomp</span>
 </pre></div>
 </div>
-</section>
 <section id="quick-start">
-<h2><strong>Quick Start</strong><a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
+<h3><strong>Quick Start</strong><a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h3>
 <p>Here’s an example on how to use <cite>mvcomp</cite> if your data is ready:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvcomp</span> <span class="kn">import</span> <span class="n">model_comp</span>
 
@@ -112,11 +105,20 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here, <cite>feature_in_dir</cite> is the path to the directory containing subject subdirectories with the MRI features.
-You can set <cite>exclude_comp_from_mean_cov</cite> to implement the leave-one-subject-out, or provide a <cite>model_dir</cite> to compare the features in <cite>feature_in_dir</cite> to the features in <cite>model_dir</cite> (which serves as the reference.</p>
+</section>
+<section id="use-cases-and-their-functions">
+<h3><strong>Use Cases and their Functions</strong><a class="headerlink" href="#use-cases-and-their-functions" title="Link to this heading">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="UserGuide/Combining_MRI_metrics.html">Comparisons between subject(s) and a reference – Combining MRI metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UserGuide/Combining_spatial_dimensions.html">Comparisons between subject(s) and a reference – Combining spatial dimensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UserGuide/Voxel-voxel_matrix_D2_resolution.html">Comparisons within a single subject – Voxel-voxel matrix D2 resolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UserGuide/Voxel-wise_D2_resolution.html">Comparisons within a single subject – Voxel-wise D2 resolution</a></li>
+</ul>
+</div>
 </section>
 <section id="reference-us">
-<h2><strong>Reference Us!</strong><a class="headerlink" href="#reference-us" title="Link to this heading">¶</a></h2>
+<h3><strong>Reference Us!</strong><a class="headerlink" href="#reference-us" title="Link to this heading">¶</a></h3>
 <p>if you use the MVComp package in your research, please cite the following paper:</p>
 <blockquote>
 <div><div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
@@ -125,32 +127,23 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </div>
 </div></blockquote>
 </section>
-<section id="having-issues-or-need-help">
-<h2><strong>Having issues or need help?</strong><a class="headerlink" href="#having-issues-or-need-help" title="Link to this heading">¶</a></h2>
-<dl class="simple">
-<dt>if you have any issues or need help with the MVComp package, please open an issue on the GitHub repository:</dt><dd><p>github.com/neuralabc/mvcomp/issues</p>
-</dd>
-<dt>or email us at:</dt><dd><p><a class="reference external" href="mailto:zaki&#46;alasmar&#37;&#52;&#48;mail&#46;concordia&#46;ca">zaki<span>&#46;</span>alasmar<span>&#64;</span>mail<span>&#46;</span>concordia<span>&#46;</span>ca</a></p>
-</dd>
-</dl>
-</section>
 <section id="contribute">
-<h2><strong>Contribute</strong><a class="headerlink" href="#contribute" title="Link to this heading">¶</a></h2>
+<h3><strong>Contribute</strong><a class="headerlink" href="#contribute" title="Link to this heading">¶</a></h3>
 <dl class="simple">
-<dt>if you would like to contribute to the MVComp package, please open an issue or a pull request on the GitHub repository:</dt><dd><p><a class="reference external" href="https://github.com/neuralabc/mvcomp.git">https://github.com/neuralabc/mvcomp.git</a></p>
+<dt>If you would like to contribute to the MVComp package, please open an issue or a pull request on the GitHub repository:</dt><dd><p><a class="reference external" href="https://github.com/neuralabc/mvcomp.git">https://github.com/neuralabc/mvcomp.git</a></p>
 </dd>
 </dl>
+<hr class="docutils" />
 <div class="toctree-wrapper compound">
 </div>
+</section>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="FirstLevel/index.html" class="btn btn-neutral float-right" title="Multivariate Comparisons (MVComp)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
