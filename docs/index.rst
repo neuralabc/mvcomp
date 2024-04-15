@@ -10,6 +10,7 @@
     :show-inheritance:
 
 
+A set of functions to compute the Mahalanobis Distance (D\ :sup:`2`) on MRI images in a group of individuals in comparison to a reference group or within a single individual.
 
 --------------
 **Installation**
