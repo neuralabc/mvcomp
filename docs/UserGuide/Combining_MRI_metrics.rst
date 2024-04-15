@@ -1,4 +1,4 @@
-Comparisons between subject(s) and a reference – Combining MRI metrics
+Comparisons between subject(s) and a reference: Combining MRI metrics
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here the reference would be defined as the voxel-wise group average for each MRI measure and D2 is computed by comparing the feature values in each voxel of an individual to the corresponding voxel in the reference. If two groups are being analyzed (e.g., patients vs controls), the control group could be used as the reference and D2 values computed between each patient and the reference would represent voxel-wise multivariate distance from controls. 

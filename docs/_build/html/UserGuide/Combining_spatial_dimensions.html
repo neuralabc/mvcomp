@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Comparisons between subject(s) and a reference – Combining spatial dimensions &mdash; MVComp 0.9.3 documentation</title>
+  <title>Comparisons between subject(s) and a reference: Combining spatial dimensions &mdash; MVComp 0.9.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -18,7 +18,9 @@
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Comparisons within a single subject: Voxel-voxel matrix D2 resolution" href="Voxel-voxel_matrix_D2_resolution.html" />
+    <link rel="prev" title="Comparisons between subject(s) and a reference: Combining MRI metrics" href="Combining_MRI_metrics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,11 +42,18 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Comparisons between subject(s) and a reference – Combining spatial dimensions</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FirstLevel/index.html"><strong>Multivariate Comparisons (MVComp)</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Combining_MRI_metrics.html">Comparisons between subject(s) and a reference: Combining MRI metrics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Comparisons between subject(s) and a reference: Combining spatial dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Voxel-voxel_matrix_D2_resolution.html">Comparisons within a single subject: Voxel-voxel matrix D2 resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Voxel-wise_D2_resolution.html">Comparisons within a single subject: Voxel-wise D2 resolution</a></li>
 </ul>
-</div>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -59,7 +68,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Comparisons between subject(s) and a reference – Combining spatial dimensions</li>
+          <li class="breadcrumb-item"><a href="index.html">User Guide</a></li>
+      <li class="breadcrumb-item active">Comparisons between subject(s) and a reference: Combining spatial dimensions</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/UserGuide/Combining_spatial_dimensions.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -70,20 +80,19 @@
            <div itemprop="articleBody">
              
   <section id="comparisons-between-subject-s-and-a-reference-combining-spatial-dimensions">
-<h1>Comparisons between subject(s) and a reference – Combining spatial dimensions<a class="headerlink" href="#comparisons-between-subject-s-and-a-reference-combining-spatial-dimensions" title="Link to this heading">¶</a></h1>
+<h1>Comparisons between subject(s) and a reference: Combining spatial dimensions<a class="headerlink" href="#comparisons-between-subject-s-and-a-reference-combining-spatial-dimensions" title="Link to this heading">¶</a></h1>
+<p>A single MRI measure can be used and combined across multiple ROIs (e.g., mean FA in pre-defined WM tracts). The reference is defined as the group mean of each tract and a single D2 value is computed for each subject. In this case, D2 represents a measure of how different a subject’s WM microstructure is relative to a reference, across multiple tracts.</p>
 <ul>
 <li><dl>
 <dt><strong>spatial_mvcomp</strong>: To compute a D2 score between each subject and the reference from a matrix containing the data (e.g., mean FA in each WM tract) of all subjects (n subjects x n tracts). Returns a vector with a single D2 value per subject.</dt><dd><p>* For leave-one-out approach, set the <cite>exclude_comp_from_mean_cov</cite> option to True.</p>
-<p>* <cite>spatial_mvcomp</cite> with <cite>return_raw</cite> set to True: To extract features contribution to D2. If set to True, a 2D array of size (number of subjects) x (number of tracts) is returned. This information can then be summarized to obtain the relative importance of each tract to D2.
-Args:</p>
-<blockquote>
-<div><ul class="simple">
+<p>* <cite>spatial_mvcomp</cite> with <cite>return_raw</cite> set to True: To extract features contribution to D2. If set to True, a 2D array of size (number of subjects) x (number of tracts) is returned. This information can then be summarized to obtain the relative importance of each tract to D2.</p>
+<dl class="simple">
+<dt><strong>Args</strong>:</dt><dd><ul class="simple">
 <li><p><cite>subjects_matrix</cite> (subjects X tracts/ROIs): 2D matrix of size (number of subjects) x (number of tracts) (e.g., mean FA values in a set of WM tracts).</p></li>
 <li><p><cite>return_raw</cite> (bool): whether to return the raw distances</p></li>
 <li><p><cite>exclude_comp_from_mean_cov</cite>: If True, the subject being compared is excluded from the mean (reference) and covariance computation</p></li>
 </ul>
-</div></blockquote>
-<dl class="simple">
+</dd>
 <dt>Returns:</dt><dd><ul class="simple">
 <li><p><cite>all_dist</cite> (subjects X 1): D2 value for each subject</p></li>
 <li><p><cite>raw_dist</cite> (subject x tract): if return_raw=True, the raw distances for each tract</p></li>
@@ -100,7 +109,10 @@ Args:</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Combining_MRI_metrics.html" class="btn btn-neutral float-left" title="Comparisons between subject(s) and a reference: Combining MRI metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Voxel-voxel_matrix_D2_resolution.html" class="btn btn-neutral float-right" title="Comparisons within a single subject: Voxel-voxel matrix D2 resolution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

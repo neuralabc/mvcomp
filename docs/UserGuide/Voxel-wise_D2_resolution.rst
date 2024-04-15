@@ -1,4 +1,4 @@
-Comparisons within a single subject – Voxel-wise D2 resolution
+Comparisons within a single subject: Voxel-wise D2 resolution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **feature_gen**: Provide the path of the images (i.e., one image per metric) and the reference ROI mask to this function to extract the feature matrix (m_f_mat of shape n voxels x n features), a mask vector (mat_mask of shape n voxels) and a nibabel object of the mask (mask_img). This function can also be used to extract the data inside the ROI of voxels to be evaluated.

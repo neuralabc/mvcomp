@@ -1,13 +1,9 @@
 **Multivariate Comparisons (MVComp)**
-=================================
+=======================================
 
 .. module:: mvcomp
     :synopsis: A set of functions to compute Mahalanobis D (D**2) on multimodal MRI images in a group of individuals in comparison to a reference group or within a single individual.
 
-.. automodule:: mvcomp
-    :members: neuralabc, steelec, zklsmr, stremblay18
-    :undoc-members:
-    :show-inheritance:
 
 
 A set of functions to compute the Mahalanobis Distance (D\ :sup:`2`) 
@@ -18,7 +14,7 @@ and a distribution D (i.e. the distribution of the same MRI features in a refere
 The Mahalanobis Distance is a generalization of the Euclidean Distance that takes into account the covariance of the data, which is important given 
 the high correlation between MRI-derived microstructural measures. 
 
-The frameworks can also be used to integrate spatial information using a single MRI measure (e.g., FA across several white matter tracts). 
+The framework can also be used to integrate spatial information using a single MRI measure (e.g., FA across several white matter tracts). 
 
 For a detailed description of how D\ :sup:`2` can be applied to neuroimaging data, please refer to our paper:
 
@@ -27,11 +23,13 @@ For a detailed description of how D\ :sup:`2` can be applied to neuroimaging dat
         Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
         BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 
-=================================
---------------
-**Installation**
---------------
-To install `mvcomp`, you can clone the repository from GitHub and add the path to the package in your python script:
+You will also find detailed steps for different use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html 
+
+=======================================
+----------------------------
+Installation
+----------------------------
+To install MVComp, you can clone the repository from GitHub and add the path to the package in your python script:
 
 to clone: 
 
@@ -49,8 +47,8 @@ and in your python script:
 
 
 
-**Quick Start**
---------------
+Quick Start
+----------------------------
 
 Here's an example of how to use MVComp if your data is ready and you wish to compute D2 voxel-wise between a subject and a reference group:
 
@@ -65,7 +63,7 @@ Here's an example of how to use MVComp if your data is ready and you wish to com
     print(result)
 
 Here, `feature_in_dir` is the path to the directory containing the MRI feature maps of all subjects and `model_dir` is the path to the directory containing the reference maps (to which each subject will be compared). You will also need to provide a mask to which you can apply a threshold using `mask_threshold`. To implement the leave-one-subject-out approach so that the subject under evaluation is excluded from D2 calculation, set `exclude_comp_from_mean_cov` to True. In this case, `model_dir` is not needed.
-You will obtain a D2 matrix of size number of voxels x number of subjects.
+The output `result` is a dictionary containing a D2 matrix (`all_dist`) of size number of voxels x number of subjects.
 
 The data must be organized as such:
 
@@ -84,17 +82,19 @@ Example:
     /my_project/average_reference_group/FA_warped_to_group_average.nii.gz
     /my_project/average_reference_group/MD_warped_to_group_average.nii.gz
 
-    Arguments would thus be:
-    feature_in_dir = "/my_project/processed_maps/"
-    suffix_name_comp = "_warped_to_group.nii.gz"
-    model_dir = "/my_project/average_reference_group/"
-    suffix_name_model = "_warped_to_group_average.nii.gz"
+    Args would thus be:
+    - feature_in_dir = "/my_project/processed_maps/"
+    - suffix_name_comp = "_warped_to_group.nii.gz"
+    - model_dir = "/my_project/average_reference_group/"
+    - suffix_name_model = "_warped_to_group_average.nii.gz"
     
 
-For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group, click here. You will also find detailed steps for other use cases here.  
+For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group: https://mvcomp.readthedocs.io/en/latest/UserGuide/Combining_MRI_metrics.html 
+
+You will also find detailed steps for other use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html  
 
 
-**Reference Us!**
+Reference Us!
 ---------------------
 If you use the MVComp package in your research, please cite the following paper:
 
@@ -104,7 +104,7 @@ If you use the MVComp package in your research, please cite the following paper:
         BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 
 
-**Having issues or need help?** 
+Having issues or need help?
 -------------------------------
 If you have any issues or need help with the MVComp package, please open an issue on the GitHub repository:
     github.com/neuralabc/mvcomp/issues
@@ -112,12 +112,19 @@ If you have any issues or need help with the MVComp package, please open an issu
 or email us at:
     zaki.alasmar@mail.concordia.ca
 
-**Contribute**  
---------------
+Contribute  
+----------------------------
 If you would like to contribute to the MVComp package, please open an issue or a pull request on the GitHub repository:
     https://github.com/neuralabc/mvcomp.git
 
----------------------
+
+License Information
+-------------------
+    .. small::
+
+    the MVComp toolobox is licensed under the Apache License 2.0. you can use it, distribute it, modify it granted you provide the same license as well. 
+    Refer to the LICENSE file for more information.
+
 =====================
 
 

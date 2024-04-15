@@ -44,7 +44,7 @@
               <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="FirstLevel/index.html"><strong>Multivariate Comparisons (MVComp)</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="UserGuide/index.html">Steps to follow depending on your use case and data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UserGuide/index.html">User Guide</a></li>
 </ul>
 
         </div>
@@ -71,15 +71,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="multivariate-comparisons-mvcomp">
-<h1><strong>Multivariate Comparisons (MVComp)</strong><a class="headerlink" href="#multivariate-comparisons-mvcomp" title="Link to this heading">¶</a></h1>
-<p id="module-mvcomp">A set of functions to compute the Mahalanobis Distance (D<sup>2</sup>)
+  <section id="module-mvcomp">
+<span id="multivariate-comparisons-mvcomp"></span><h1><strong>Multivariate Comparisons (MVComp)</strong><a class="headerlink" href="#module-mvcomp" title="Link to this heading">¶</a></h1>
+<p>A set of functions to compute the Mahalanobis Distance (D<sup>2</sup>)
 on MRI images in a group of individuals in comparison to a reference group or within a single individual.</p>
 <p>Tha Mahalanobis Distance (D<sup>2</sup>) is a measure of the distance between a point P (i.e. MRI features in a subject or an ROI)
 and a distribution D (i.e. the distribution of the same MRI features in a reference group or another ROI).
 The Mahalanobis Distance is a generalization of the Euclidean Distance that takes into account the covariance of the data, which is important given
 the high correlation between MRI-derived microstructural measures.</p>
-<p>The frameworks can also be used to integrate spatial information using a single MRI measure (e.g., FA across several white matter tracts).</p>
+<p>The framework can also be used to integrate spatial information using a single MRI measure (e.g., FA across several white matter tracts).</p>
 <p>For a detailed description of how D<sup>2</sup> can be applied to neuroimaging data, please refer to our paper:</p>
 <blockquote>
 <div><div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
@@ -87,9 +87,10 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </pre></div>
 </div>
 </div></blockquote>
+<p>You will also find detailed steps for different use cases here: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html</a></p>
 <section id="installation">
-<h2><strong>Installation</strong><a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<p>To install <cite>mvcomp</cite>, you can clone the repository from GitHub and add the path to the package in your python script:</p>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
+<p>To install MVComp, you can clone the repository from GitHub and add the path to the package in your python script:</p>
 <p>to clone:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/neuralabc/mvcomp.git
 </pre></div>
@@ -102,7 +103,7 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </div>
 </section>
 <section id="quick-start">
-<h2><strong>Quick Start</strong><a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
 <p>Here’s an example of how to use MVComp if your data is ready and you wish to compute D2 voxel-wise between a subject and a reference group:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvcomp</span> <span class="kn">import</span> <span class="n">model_comp</span>
 
@@ -114,7 +115,7 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </pre></div>
 </div>
 <p>Here, <cite>feature_in_dir</cite> is the path to the directory containing the MRI feature maps of all subjects and <cite>model_dir</cite> is the path to the directory containing the reference maps (to which each subject will be compared). You will also need to provide a mask to which you can apply a threshold using <cite>mask_threshold</cite>. To implement the leave-one-subject-out approach so that the subject under evaluation is excluded from D2 calculation, set <cite>exclude_comp_from_mean_cov</cite> to True. In this case, <cite>model_dir</cite> is not needed.
-You will obtain a D2 matrix of size number of voxels x number of subjects.</p>
+The output <cite>result</cite> is a dictionary containing a D2 matrix (<cite>all_dist</cite>) of size number of voxels x number of subjects.</p>
 <p>The data must be organized as such:</p>
 <p>Subjects’ directories are inside feature_in_dir (e.g., /my_project/processed_maps/) and their folder names consists in numbers only (e.g., 001, 002, etc.). Ensure your feature maps have consistent file names such that the file prefix is the name of the MRI measure (e.g., FA) and the suffix is the same across all features (e.g., suffix_name_comp = “_warped_to_group.nii.gz”). The MRI maps that will be used as reference should be a group average of all subjects (or of subjects of a control group) for each MRI measure. These maps should have the same prefix as the feature maps and they should be contained in <cite>model_dir</cite>.</p>
 <p>Example:</p>
@@ -128,16 +129,17 @@ You will obtain a D2 matrix of size number of voxels x number of subjects.</p>
 <p>Reference (average) maps:
 /my_project/average_reference_group/FA_warped_to_group_average.nii.gz
 /my_project/average_reference_group/MD_warped_to_group_average.nii.gz</p>
-<p>Arguments would thus be:
-feature_in_dir = “/my_project/processed_maps/”
-suffix_name_comp = “_warped_to_group.nii.gz”
-model_dir = “/my_project/average_reference_group/”
-suffix_name_model = “_warped_to_group_average.nii.gz”</p>
+<p>Args would thus be:
+- feature_in_dir = “/my_project/processed_maps/”
+- suffix_name_comp = “_warped_to_group.nii.gz”
+- model_dir = “/my_project/average_reference_group/”
+- suffix_name_model = “_warped_to_group_average.nii.gz”</p>
 </div></blockquote>
-<p>For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group, click here. You will also find detailed steps for other use cases here.</p>
+<p>For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/Combining_MRI_metrics.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/Combining_MRI_metrics.html</a></p>
+<p>You will also find detailed steps for other use cases here: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html</a></p>
 </section>
 <section id="reference-us">
-<h2><strong>Reference Us!</strong><a class="headerlink" href="#reference-us" title="Link to this heading">¶</a></h2>
+<h2>Reference Us!<a class="headerlink" href="#reference-us" title="Link to this heading">¶</a></h2>
 <p>If you use the MVComp package in your research, please cite the following paper:</p>
 <blockquote>
 <div><div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
@@ -147,7 +149,7 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </div></blockquote>
 </section>
 <section id="having-issues-or-need-help">
-<h2><strong>Having issues or need help?</strong><a class="headerlink" href="#having-issues-or-need-help" title="Link to this heading">¶</a></h2>
+<h2>Having issues or need help?<a class="headerlink" href="#having-issues-or-need-help" title="Link to this heading">¶</a></h2>
 <dl class="simple">
 <dt>If you have any issues or need help with the MVComp package, please open an issue on the GitHub repository:</dt><dd><p>github.com/neuralabc/mvcomp/issues</p>
 </dd>
@@ -156,11 +158,19 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </dl>
 </section>
 <section id="contribute">
-<h2><strong>Contribute</strong><a class="headerlink" href="#contribute" title="Link to this heading">¶</a></h2>
+<h2>Contribute<a class="headerlink" href="#contribute" title="Link to this heading">¶</a></h2>
 <dl class="simple">
 <dt>If you would like to contribute to the MVComp package, please open an issue or a pull request on the GitHub repository:</dt><dd><p><a class="reference external" href="https://github.com/neuralabc/mvcomp.git">https://github.com/neuralabc/mvcomp.git</a></p>
 </dd>
 </dl>
+</section>
+<section id="license-information">
+<h2>License Information<a class="headerlink" href="#license-information" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><p>the MVComp toolobox is licensed under the Apache License 2.0. you can use it, distribute it, modify it granted you provide the same license as well.
+Refer to the LICENSE file for more information.</p>
+</div></blockquote>
+<hr class="docutils" />
 <div class="toctree-wrapper compound">
 </div>
 </section>

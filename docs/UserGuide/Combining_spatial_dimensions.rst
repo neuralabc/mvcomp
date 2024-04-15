@@ -1,8 +1,8 @@
-Comparisons between subject(s) and a reference – Combining spatial dimensions
+Comparisons between subject(s) and a reference: Combining spatial dimensions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A single MRI measure can be used and combined across multiple ROIs (e.g., mean FA in pre-defined WM tracts). The reference is defined as the group mean of each tract and a single D2 value is computed for each subject. In this case, D2 represents a measure of how different a subject's WM microstructure is relative to a reference, across multiple tracts.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - **spatial_mvcomp**: To compute a D2 score between each subject and the reference from a matrix containing the data (e.g., mean FA in each WM tract) of all subjects (n subjects x n tracts). Returns a vector with a single D2 value per subject.
     \* For leave-one-out approach, set the `exclude_comp_from_mean_cov` option to True.
     
@@ -15,4 +15,5 @@ A single MRI measure can be used and combined across multiple ROIs (e.g., mean F
     Returns:
         - `all_dist` (subjects X 1): D2 value for each subject
         - `raw_dist` (subject x tract): if return_raw=True, the raw distances for each tract
+        
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

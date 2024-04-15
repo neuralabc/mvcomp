@@ -1,4 +1,4 @@
-Comparisons within a single subject – Voxel-voxel matrix D2 resolution
+Comparisons within a single subject: Voxel-voxel matrix D2 resolution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **voxel2voxel_dist**: To compute D2 between each voxel and all other voxels in a mask. Yields a symmetric 2-D matrix of size n voxels x n voxels containing D2 values between each pair of voxels.

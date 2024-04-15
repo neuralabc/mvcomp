@@ -1,13 +1,16 @@
-Comparisons between subject(s) and a reference – Combining MRI metrics
+Comparisons between subject(s) and a reference: Combining MRI metrics
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here the reference would be defined as the voxel-wise group average for each MRI measure and D2 is computed by comparing the feature values in each voxel of an individual to the corresponding voxel in the reference. If two groups are being analyzed (e.g., patients vs controls), the control group could be used as the reference and D2 values computed between each patient and the reference would represent voxel-wise multivariate distance from controls. 
+To ensure that each subject’s data will not bias their D2 values in single sample designs (i.e., where the entire sample is used as a reference) and to allow the evaluation of controls in two-sample designs, a leave-one-subject-out approach is possible. In this way, the subject under evaluation is excluded from the group mean (reference) and covariance matrix prior to calculating D2. To implement the leave-one-subject-out approach, skip to the `model_comp` function and set the `exclude_comp_from_mean_cov` option to True.
 
 - **compute_average**: To compute the group average maps of each metric (will serve as the reference). 
     Args:
-        - `ids` (list): desired participants IDs
+        - `ids` (list): desired participants IDs (numbers only, e.g., 001, 002, etc.)
         - `in_dir` (string): directory where subjects subdirectories are
         - `out_dir` (string): output directory to save average images in
-        - `features` (list of strings): list of features names (e.g., FA)
-        - `feature_suffix` (string): suffix of feature files. features and feature_suffix should create the file names for the features wanted.
+        - `features` (list of strings): list of features names (e.g., "FA")
+        - `feature_suffix` (string): suffix of feature files (e.g., "_warped_to_group.nii.gz"). features and feature_suffix should create the file names for the features wanted (e.g., "FA_warped_to_group.nii.gz").
         - `verbose` (int): level of verbosity. 0 = only important steps, 1 = more detailed.
 
 - **feature_gen**: Apply to the reference group average maps to extract the feature matrix (m_f_mat of shape n voxels x n features), a mask vector (mat_mask of shape n voxels) and a nibabel object of the mask (mask_img).
@@ -36,7 +39,7 @@ Comparisons between subject(s) and a reference – Combining MRI metrics
 - **correlation_fig**: To generate a correlation matrix figure from the covariance matrix (s). For visualization.
     Args: 
         - `s` (numpy.ndarray): covariance matrix of size feature x feature
-        - `f_list` (List of strings): A list of the names of the features that should be in the same order of the covarinca matrix.
+        - `f_list` (List of strings): A list of the names of the features that should be in the same order as the covariance matrix.
 
 - **model_comp**: To calculate voxel-wise D2 between each subject contained in the provided subject_ids list and the reference (group average). Yields a D2 matrix of size number of voxels x number of subjects.
     \* For leave-one-out approach, set the `exclude_comp_from_mean_cov` option to True (the previous steps can be skipped in this case since a new covariance matrix is computed for each subject, within the `model_comp` function).

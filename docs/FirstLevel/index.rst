@@ -1,13 +1,9 @@
 **Multivariate Comparisons (MVComp)**
-=================================
+=======================================
 
 .. module:: mvcomp
     :synopsis: A set of functions to compute Mahalanobis D (D**2) on multimodal MRI images in a group of individuals in comparison to a reference group or within a single individual.
 
-.. automodule:: mvcomp
-    :members: neuralabc, steelec, zklsmr, stremblay18
-    :undoc-members:
-    :show-inheritance:
 
 
 A set of functions to compute the Mahalanobis Distance (D\ :sup:`2`) 
@@ -29,10 +25,10 @@ For a detailed description of how D\ :sup:`2` can be applied to neuroimaging dat
 
 You will also find detailed steps for different use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html 
 
-=================================
---------------
-**Installation**
---------------
+=======================================
+----------------------------
+Installation
+----------------------------
 To install MVComp, you can clone the repository from GitHub and add the path to the package in your python script:
 
 to clone: 
@@ -51,8 +47,8 @@ and in your python script:
 
 
 
-**Quick Start**
---------------
+Quick Start
+----------------------------
 
 Here's an example of how to use MVComp if your data is ready and you wish to compute D2 voxel-wise between a subject and a reference group:
 
@@ -98,7 +94,7 @@ For more details on the steps to follow for computing voxel-wise D2 between a su
 You will also find detailed steps for other use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html  
 
 
-**Reference Us!**
+Reference Us!
 ---------------------
 If you use the MVComp package in your research, please cite the following paper:
 
@@ -108,7 +104,7 @@ If you use the MVComp package in your research, please cite the following paper:
         BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 
 
-**Having issues or need help?** 
+Having issues or need help?
 -------------------------------
 If you have any issues or need help with the MVComp package, please open an issue on the GitHub repository:
     github.com/neuralabc/mvcomp/issues
@@ -116,12 +112,19 @@ If you have any issues or need help with the MVComp package, please open an issu
 or email us at:
     zaki.alasmar@mail.concordia.ca
 
-**Contribute**  
---------------
+Contribute  
+----------------------------
 If you would like to contribute to the MVComp package, please open an issue or a pull request on the GitHub repository:
     https://github.com/neuralabc/mvcomp.git
 
----------------------
+
+License Information
+-------------------
+    .. small::
+
+    the MVComp toolobox is licensed under the Apache License 2.0. you can use it, distribute it, modify it granted you provide the same license as well. 
+    Refer to the LICENSE file for more information.
+
 =====================
 
 
