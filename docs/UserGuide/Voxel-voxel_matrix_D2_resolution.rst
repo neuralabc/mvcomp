@@ -1,6 +1,8 @@
 Comparisons within a single subject: Voxel-voxel matrix D2 resolution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+D2 can be calculated between every pair of voxels (voxel x − voxel y) within a mask of analysis to compute a voxel-voxel D2 matrix. In this case, the reference for computing the covariance matrix would be the data in all voxels contained in the mask.
+
 - **voxel2voxel_dist**: To compute D2 between each voxel and all other voxels in a mask. Yields a symmetric 2-D matrix of size n voxels x n voxels containing D2 values between each pair of voxels.
     Args:
             - `subdir` (string): subject directory path that contains their feature images
