@@ -80,22 +80,22 @@
              
   <section id="comparisons-within-a-single-subject-voxel-wise-d2-resolution">
 <h1>Comparisons within a single subject: Voxel-wise D2 resolution<a class="headerlink" href="#comparisons-within-a-single-subject-voxel-wise-d2-resolution" title="Link to this heading">¶</a></h1>
+<p>Here, the dimensions combined are multiple MRI measures in each voxel, and the reference is the average of all voxels within a region of interest (ROI) for each metric. An example of this would be computing D2 between lesions and normal-appearing WM (NAWM). The reference would be defined as the average of all NAWM voxels and D2 would be computed for each voxel classified as a lesion. Alternatively, the resolution could be ROI-wise if the user deems a single D2 value per lesion sufficient. This within-subject approach can also be used as a measure of similarity by computing D2 between all WM voxels and a reference ROI in a specific tract for instance. Voxels within the same WM tract as the reference ROI are likely to have lower D2 values (indicating higher similarity) than voxels in other tracts or in areas of crossing fibers.</p>
 <ul>
-<li><p><strong>feature_gen</strong>: Provide the path of the images (i.e., one image per metric) and the reference ROI mask to this function to extract the feature matrix (m_f_mat of shape n voxels x n features), a mask vector (mat_mask of shape n voxels) and a nibabel object of the mask (mask_img). This function can also be used to extract the data inside the ROI of voxels to be evaluated.</p></li>
+<li><p><strong>feature_gen</strong>: Provide the path of the images (i.e., one image per metric) and the reference ROI mask (e.g., NAWM ROI) to this function to extract the feature matrix (m_f_mat of shape n voxels x n features), a mask vector (mat_mask of shape n voxels) and a nibabel object of the mask (mask_img). This function can also be used to extract the data inside the ROI of voxels to be evaluated (e.g., lesion ROI).</p></li>
 <li><p><strong>norm_covar_inv</strong>: To compute the covariance matrix (s) and its pseudoinverse (pinv_s) from the reference feature and mask matrices (m_f_mat and mat_mask).</p></li>
 <li><p><strong>correlation_fig</strong>: To generate a correlation matrix figure from the covariance matrix (s). For visualization.</p></li>
-<li><dl>
-<dt><strong>mah_dist_mat_2_roi</strong>: To compute voxel-wise D2 between all voxels within a mask and a specific reference ROI. The user will need to provide a vector of data for the reference ROI (i.e., mean across voxels in the ROI for each metric), along with the feature matrix containing the data for the voxels to be evaluated.</dt><dd><p>*`mah_dist_mat_2_roi` with <cite>return_raw</cite> set to True : To extract features’ contributions. The output will be of shape (number of voxels) x (number of metrics).
-Args:</p>
+<li><p><strong>mah_dist_mat_2_roi</strong>: To compute voxel-wise D2 between all voxels within a mask and a specific reference ROI. The user will need to provide a vector of data for the reference ROI (i.e., mean across voxels in the ROI for each metric), along with the feature matrix containing the data for the voxels to be evaluated.</p>
 <blockquote>
-<div><ul class="simple">
+<div><p>*`mah_dist_mat_2_roi` with <cite>return_raw</cite> set to True : To extract features’ contributions. The output will be of shape (number of voxels) x (number of metrics).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
 <li><p><cite>feature_mat</cite> (numpy.ndarray): 2D array of size (number of voxels) X (number of features) that we want to compute D2 over.</p></li>
 <li><p><cite>roi_feature_vec</cite> (numpy.ndarray): 1D array of size (number of features) containing ROI-averaged feature values (reference).</p></li>
 <li><p><cite>pinv_s</cite> (numpy.ndarray): pseudo-inverse of the covariance matrix of size (number of features) x (number of features)</p></li>
 <li><p><cite>return_raw</cite> (boolean): If it is false the function returns D2, otherwise, it returns raw distances (one distance value for each feature).</p></li>
 </ul>
-</div></blockquote>
-<dl class="simple">
+</dd>
 <dt>Returns:</dt><dd><ul class="simple">
 <li><dl class="simple">
 <dt><cite>results</cite> (dict):</dt><dd><dl class="simple">
@@ -112,8 +112,7 @@ raw_dist (numpy.ndarray): 2D array of size (number of voxels) x (number of featu
 </ul>
 </dd>
 </dl>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 </ul>
 <hr class="docutils" />

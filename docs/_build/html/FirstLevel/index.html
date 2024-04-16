@@ -47,6 +47,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Multivariate Comparisons (MVComp)</strong></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-organization">Data organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reference-us">Reference Us!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#having-issues-or-need-help">Having issues or need help?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contribute">Contribute</a></li>
@@ -125,12 +126,15 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </div>
 <p>Here, <cite>feature_in_dir</cite> is the path to the directory containing the MRI feature maps of all subjects and <cite>model_dir</cite> is the path to the directory containing the reference maps (to which each subject will be compared). You will also need to provide a mask to which you can apply a threshold using <cite>mask_threshold</cite>. To implement the leave-one-subject-out approach so that the subject under evaluation is excluded from D2 calculation, set <cite>exclude_comp_from_mean_cov</cite> to True. In this case, <cite>model_dir</cite> is not needed.
 The output <cite>result</cite> is a dictionary containing a D2 matrix (<cite>all_dist</cite>) of size number of voxels x number of subjects.</p>
+</section>
+<section id="data-organization">
+<h2>Data organization<a class="headerlink" href="#data-organization" title="Link to this heading">¶</a></h2>
 <p>The data must be organized as such:</p>
 <p>Subjects’ directories are inside feature_in_dir (e.g., /my_project/processed_maps/) and their folder names consists in numbers only (e.g., 001, 002, etc.). Ensure your feature maps have consistent file names such that the file prefix is the name of the MRI measure (e.g., FA) and the suffix is the same across all features (e.g., suffix_name_comp = “_warped_to_group.nii.gz”). The MRI maps that will be used as reference should be a group average of all subjects (or of subjects of a control group) for each MRI measure. These maps should have the same prefix as the feature maps and they should be contained in <cite>model_dir</cite>.</p>
 <p>Example:</p>
 <blockquote>
-<div><p>Feature maps:
-/my_project/processed_maps/001/FA_warped_to_group.nii.gz
+<div><p>Feature maps:</p>
+<p>/my_project/processed_maps/001/FA_warped_to_group.nii.gz
 /my_project/processed_maps/001/MD_warped_to_group.nii.gz
 /my_project/processed_maps/002/FA_warped_to_group.nii.gz
 /my_project/processed_maps/002/MD_warped_to_group.nii.gz
@@ -138,11 +142,15 @@ The output <cite>result</cite> is a dictionary containing a D2 matrix (<cite>all
 <p>Reference (average) maps:
 /my_project/average_reference_group/FA_warped_to_group_average.nii.gz
 /my_project/average_reference_group/MD_warped_to_group_average.nii.gz</p>
-<p>Args would thus be:
-- feature_in_dir = “/my_project/processed_maps/”
-- suffix_name_comp = “_warped_to_group.nii.gz”
-- model_dir = “/my_project/average_reference_group/”
-- suffix_name_model = “_warped_to_group_average.nii.gz”</p>
+<dl class="simple">
+<dt>Args would thus be:</dt><dd><ul class="simple">
+<li><p>feature_in_dir = “/my_project/processed_maps/”</p></li>
+<li><p>suffix_name_comp = “_warped_to_group.nii.gz”</p></li>
+<li><p>model_dir = “/my_project/average_reference_group/”</p></li>
+<li><p>suffix_name_model = “_warped_to_group_average.nii.gz”</p></li>
+</ul>
+</dd>
+</dl>
 </div></blockquote>
 <p>For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/Combining_MRI_metrics.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/Combining_MRI_metrics.html</a></p>
 <p>You will also find detailed steps for other use cases here: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html</a></p>
