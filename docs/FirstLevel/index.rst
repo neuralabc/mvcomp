@@ -65,6 +65,10 @@ Here's an example of how to use MVComp if your data is ready and you wish to com
 Here, `feature_in_dir` is the path to the directory containing the MRI feature maps of all subjects and `model_dir` is the path to the directory containing the reference maps (to which each subject will be compared). You will also need to provide a mask to which you can apply a threshold using `mask_threshold`. To implement the leave-one-subject-out approach so that the subject under evaluation is excluded from D2 calculation, set `exclude_comp_from_mean_cov` to True. In this case, `model_dir` is not needed.
 The output `result` is a dictionary containing a D2 matrix (`all_dist`) of size number of voxels x number of subjects.
 
+
+Data organization
+----------------------------
+
 The data must be organized as such:
 
 Subjects' directories are inside feature_in_dir (e.g., /my_project/processed_maps/) and their folder names consists in numbers only (e.g., 001, 002, etc.). Ensure your feature maps have consistent file names such that the file prefix is the name of the MRI measure (e.g., FA) and the suffix is the same across all features (e.g., suffix_name_comp = "_warped_to_group.nii.gz"). The MRI maps that will be used as reference should be a group average of all subjects (or of subjects of a control group) for each MRI measure. These maps should have the same prefix as the feature maps and they should be contained in `model_dir`.   
@@ -72,6 +76,7 @@ Subjects' directories are inside feature_in_dir (e.g., /my_project/processed_map
 Example:
 
     Feature maps:
+
     /my_project/processed_maps/001/FA_warped_to_group.nii.gz
     /my_project/processed_maps/001/MD_warped_to_group.nii.gz
     /my_project/processed_maps/002/FA_warped_to_group.nii.gz
@@ -83,10 +88,10 @@ Example:
     /my_project/average_reference_group/MD_warped_to_group_average.nii.gz
 
     Args would thus be:
-    - feature_in_dir = "/my_project/processed_maps/"
-    - suffix_name_comp = "_warped_to_group.nii.gz"
-    - model_dir = "/my_project/average_reference_group/"
-    - suffix_name_model = "_warped_to_group_average.nii.gz"
+        - feature_in_dir = "/my_project/processed_maps/"
+        - suffix_name_comp = "_warped_to_group.nii.gz"
+        - model_dir = "/my_project/average_reference_group/"
+        - suffix_name_model = "_warped_to_group_average.nii.gz"
     
 
 For more details on the steps to follow for computing voxel-wise D2 between a subject and a reference group: https://mvcomp.readthedocs.io/en/latest/UserGuide/Combining_MRI_metrics.html 
