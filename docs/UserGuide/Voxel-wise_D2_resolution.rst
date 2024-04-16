@@ -10,6 +10,7 @@ Here, the dimensions combined are multiple MRI measures in each voxel, and the r
 - **correlation_fig**: To generate a correlation matrix figure from the covariance matrix (s). For visualization.
 
 - **mah_dist_mat_2_roi**: To compute voxel-wise D2 between all voxels within a mask and a specific reference ROI. The user will need to provide a vector of data for the reference ROI (i.e., mean across voxels in the ROI for each metric), along with the feature matrix containing the data for the voxels to be evaluated.
+
     \*`mah_dist_mat_2_roi` with `return_raw` set to True : To extract features’ contributions. The output will be of shape (number of voxels) x (number of metrics).
         
     Args:
