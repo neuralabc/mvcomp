@@ -1,6 +1,7 @@
-# Sphinx==4.0.3
+Sphinx==4.0.3
 # sphinxcontrib-matlabdomain
 sphinx_rtd_theme
+tomli
 # sphinx-gallery
 # # plotly
 # wordcloud
