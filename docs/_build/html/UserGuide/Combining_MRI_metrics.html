@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comparisons between subject(s) and a reference: Combining MRI metrics &mdash; MVComp 0.9.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/documentation_options.js?v=0e439607"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Comparisons between subject(s) and a reference: Combining spatial dimensions" href="Combining_spatial_dimensions.html" />
+    <link rel="prev" title="User Guide" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MVComp
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../FirstLevel/index.html"><strong>Multivariate Comparisons (MVComp)</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Comparisons between subject(s) and a reference: Combining MRI metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Combining_spatial_dimensions.html">Comparisons between subject(s) and a reference: Combining spatial dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Voxel-voxel_matrix_D2_resolution.html">Comparisons within a single subject: Voxel-voxel matrix D2 resolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Voxel-wise_D2_resolution.html">Comparisons within a single subject: Voxel-wise D2 resolution</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MVComp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">User Guide</a></li>
+      <li class="breadcrumb-item active">Comparisons between subject(s) and a reference: Combining MRI metrics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/UserGuide/Combining_MRI_metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="comparisons-between-subject-s-and-a-reference-combining-mri-metrics">
+<h1>Comparisons between subject(s) and a reference: Combining MRI metrics<a class="headerlink" href="#comparisons-between-subject-s-and-a-reference-combining-mri-metrics" title="Link to this heading">¶</a></h1>
+<p>Here the reference would be defined as the voxel-wise group average for each MRI measure and D2 is computed by comparing the feature values in each voxel of an individual to the corresponding voxel in the reference. If two groups are being analyzed (e.g., patients vs controls), the control group could be used as the reference and D2 values computed between each patient and the reference would represent voxel-wise multivariate distance from controls.</p>
+<p>To ensure that each subject’s data will not bias their D2 values in single sample designs (i.e., where the entire sample is used as a reference) and to allow the evaluation of controls in two-sample designs, a leave-one-subject-out approach is possible. In this way, the subject under evaluation is excluded from the group mean (reference) and covariance matrix prior to calculating D2. To implement the leave-one-subject-out approach, skip to the <cite>model_comp</cite> function and set the <cite>exclude_comp_from_mean_cov</cite> option to True.</p>
+<p>For details on how to organize data see: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/FirstLevel/index.html#quick-start">https://mvcomp.readthedocs.io/en/latest/FirstLevel/index.html#quick-start</a></p>
+<ul>
+<li><dl class="simple">
+<dt><strong>compute_average</strong>: To compute the group average maps of each metric (will serve as the reference).</dt><dd><dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p><cite>ids</cite> (list): desired participants IDs (numbers only, e.g., 001, 002, etc.)</p></li>
+<li><p><cite>in_dir</cite> (string): directory where subjects subdirectories are</p></li>
+<li><p><cite>out_dir</cite> (string): output directory to save average images in</p></li>
+<li><p><cite>features</cite> (list of strings): list of features names (e.g., “FA”)</p></li>
+<li><p><cite>feature_suffix</cite> (string): suffix of feature files (e.g., “_warped_to_group.nii.gz”). features and feature_suffix should create the file names for the features wanted (e.g., “FA_warped_to_group.nii.gz”).</p></li>
+<li><p><cite>verbose</cite> (int): level of verbosity. 0 = only important steps, 1 = more detailed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>feature_gen</strong>: Apply to the reference group average maps to extract the feature matrix (m_f_mat of shape n voxels x n features), a mask vector (mat_mask of shape n voxels) and a nibabel object of the mask (mask_img).</dt><dd><dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p><cite>feature_image_fname_list</cite> (list of strings): a list of full pathnames of the reference images</p></li>
+<li><p><cite>feature_in_dir</cite> (string): path of directory that contains all the reference images (This could likely be removed since first arg is required and already contains full file paths)</p></li>
+<li><p><cite>mask_image_fname</cite> (string): Full pathname of the mask used for analysis. mask_image takes precedence over this.</p></li>
+<li><p><cite>mask_image</cite> (nibabel object): nibabel object of the mask</p></li>
+<li><p><cite>verbosity</cite> (int): if not zero, it prints additional information</p></li>
+<li><p><cite>mask_threshold</cite> (float): a number in the range of 0-1 that determines the threshold to apply on non-binarized mask.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><cite>feature_mat</cite> (numpy.ndarray): 2D feature matrix in the shape of (number of voxels) x (number of features)</p></li>
+<li><p><cite>mask_img</cite> (nibabel object): In the case that we have <cite>mask_image</cite> as input it is the same as that, otherwise, it is the nibabel object of <cite>mask_image_fname</cite>.</p></li>
+<li><p><cite>feature_mat_vec_mask</cite> (numpy boolean array): Lookup vector of size (number of voxels) that is zero (<cite>False</cite>) where there are nans or infs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>norm_covar_inv</strong>: To compute the covariance matrix (s) and its pseudoinverse (pinv_s) from the reference feature and mask matrices (m_f_mat and mat_mask).</dt><dd><dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p><cite>feature_mat</cite> (numpy.ndarray): 2D feature matrix in the shape of (number of voxels) x (number of features)</p></li>
+<li><p><cite>mask</cite> (numpy array): A vector that works as a mask (nan/inf = 0 otherwise = 1). If not provided, the pseudo-inverse will be computed on the entire feature matrix</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p><cite>s</cite> (numpy array): covariance matrix of size (number of features) x (number of features)</p></li>
+<li><p><cite>pinv_s</cite> (numpy array): pseudo-inverse of the covariance matrix.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>correlation_fig</strong>: To generate a correlation matrix figure from the covariance matrix (s). For visualization.</dt><dd><dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p><cite>s</cite> (numpy.ndarray): covariance matrix of size feature x feature</p></li>
+<li><p><cite>f_list</cite> (List of strings): A list of the names of the features that should be in the same order as the covariance matrix.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><strong>model_comp</strong>: To calculate voxel-wise D2 between each subject contained in the provided subject_ids list and the reference (group average). Yields a D2 matrix of size number of voxels x number of subjects.</dt><dd><p>* For leave-one-out approach, set the <cite>exclude_comp_from_mean_cov</cite> option to True (the previous steps can be skipped in this case since a new covariance matrix is computed for each subject, within the <cite>model_comp</cite> function).</p>
+<p>* <cite>model_comp</cite> with  <cite>return_raw</cite> set to True: To extract features contribution to D2 in a region of interest. When <cite>return_raw</cite> is set to True, the function returns a 3D array of size (number of voxels) x (number of metrics) x (number of subjects). This information can then be summarized to obtain the % contribution of each metric for a group of subjects.</p>
+<dl>
+<dt>Args:</dt><dd><ul class="simple">
+<li><p><cite>feature_in_dir</cite> (String): The working directory that contains all the subjects’ subdirectories</p></li>
+<li><p><cite>model_dir</cite> (String): The directory containing the reference images (feature averages). Not needed if <cite>exclude_comp_from_mean_cov</cite> is set to True</p></li>
+<li><p><cite>suffix_name_comp</cite> (String): The suffix of the subjects’ files</p></li>
+<li><p><cite>suffix_name_model</cite> (String): The suffix of the reference files</p></li>
+<li><p><cite>exclude_comp_from_mean_cov</cite> (bool): If True (default), does not include the subject for which D2 is being calculated in the reference</p></li>
+<li><p><cite>mask_f</cite> (String): full pathname of the mask</p></li>
+<li><p><cite>mask_img</cite> (nibabel): A nibabel object of the mask</p></li>
+<li><p><cite>mask_threshold</cite> (float): A number in range 0-1 that determines the threshold of the mask</p></li>
+<li><p><cite>subject_ids</cite> (List of Strings): A list of strings containing the IDs of the subjects we want to calculate D2 for. If empty, a list of IDs will be created from all the subdirectories in <cite>feature_in_dir</cite>.</p></li>
+<li><p><cite>exclude_subject_ids</cite> (list of str): List of subject IDs (str) to exclude from analysis</p></li>
+<li><p><cite>feat_sub</cite> (List of strings): The names of the features we don’t want to include in D2 calculation.</p></li>
+<li><p><cite>return_raw</cite> (bool): If True, also returns raw distances</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><ul class="simple">
+<li><p>dict with the following</p></li>
+</ul>
+<p>{‘all_dist’ (numpy.ndarray): 2D array of size (number of voxels) x (number of subjects) that contains voxelwise D2 for all subjects.
+‘all_mask’ (numpy.ndarray): 2D array of size (number of voxels) x (number of subjects) that is all ones except in the locations of naninf.
+‘subject_ids’: subject IDs
+‘feature_names’: feature names
+‘raw_dist’ (numpy.ndarray): if return_raw=True. 3D array of size (number of voxels) x (number of features) x (number of subjects) that contains the voxel-wise raw distances for each feature}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>dist_plot</strong>: To produce D2 maps for every subject from the D2 matrix generated by <cite>model_comp</cite>.</dt><dd><dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p><cite>all_dist</cite> (numpy.ndarray): 2D array of size (number of voxels) x (number of subjects) that contains voxelwise D2 of all subjects.</p></li>
+<li><p><cite>all_mask</cite> (numpy.ndarray): 2D array of size (number of voxels) x (number of subjects) that is all one except in the locations of naninf.</p></li>
+<li><p><cite>subject_ids</cite> (List of Strings): A list of strings containing the IDs of the subjects.</p></li>
+<li><p><cite>feat_sub</cite> (List of strings): The name of the features that were not involved in D2 calculation.</p></li>
+<li><p><cite>save_results</cite> (Boolian): If True, results will be saved.</p></li>
+<li><p><cite>out_dir</cite> (String): Directory where we want to save the results.</p></li>
+<li><p><cite>mask_f</cite> (String): full pathname of the mask</p></li>
+<li><p><cite>mask_img</cite> (nibabel): A nibabel object of the mask</p></li>
+<li><p><cite>coordinate</cite> (Tuple): Location of the crosshair at which the plot will be centered.</p></li>
+<li><p><cite>vmin</cite> (Float): Lower limit of intensity</p></li>
+<li><p><cite>vmax</cite> (Float): Upper limit of intensity</p></li>
+<li><p><cite>hist_tr</cite> (Float): Maximum D2 value we want to be shown in the histogram.</p></li>
+<li><p><cite>nobin</cite> (int): Number of bins for the histogram.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+</ul>
+<hr class="docutils" />
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Combining_spatial_dimensions.html" class="btn btn-neutral float-right" title="Comparisons between subject(s) and a reference: Combining spatial dimensions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, NeuralABC, steelec, stremblay18, zklsmr.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+mvcomp.py
+=========
+
+.. module:: mvcomp
+    :synopsis: A module for performing multivariate computations.
+
+.. automodule:: mvcomp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Installation
+------------
+
+To install `mvcomp`, you can use pip:
+
+.. code-block:: bash
+
+    pip install mvcomp
+
+Usage
+-----
+
+Here's an example of how to use `mvcomp` if your data is ready:
+
+.. code-block:: python
+
+    from mvcomp import model_comp
+
+    result = model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclude_comp_from_mean_cov=True,
+               suffix_name_model=".nii.gz", mask_f=None, mask_img=None, verbosity=1,
+               mask_threshold=0.9, subject_ids=None, exclude_subject_ids=None, feat_sub=[], return_raw=False)
+
+    print(result)
+
+API Reference
+-------------
+
+.. automodule:: mvcomp
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,9 @@
+# Sphinx==4.0.3
+# sphinxcontrib-matlabdomain
+sphinx_rtd_theme
+tomli
+# sphinx-gallery
+# # plotly
+# wordcloud
+# jinja2<3.1
+# -r requirements.txt
