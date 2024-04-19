@@ -45,7 +45,7 @@ def compute_average(ids, in_dir, out_dir,features=[],feature_suffix=".nii.gz", v
             
         fnames = [os.path.join(in_dir, str(_id), feature_fname + feature_suffix) for _id in ids]
         if verbose > 0:
-            print(f"Found {len(fnames)} {feature_fname} files, concatinating")
+            print(f"Found {len(fnames)} {feature_fname} files, concatenating")
             
         _imgs = nb.concat_images(fnames)
         _imgs_data = _imgs.get_fdata()
@@ -386,7 +386,7 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
     if model_dir is not None:
         model_feature_image_fname_list, model_feature_list = feature_list(model_dir, suffix_name_model, feat_sub)
     else:
-        model_feature_image_fname_list, model_feature_list = feature_list(f"{feature_in_dir}/{subject_ids[0]}/", suffix_name_model, feat_sub)
+        model_feature_image_fname_list, model_feature_list = feature_list(f"{feature_in_dir}/{subject_ids[0]}/", suffix_name_comp, feat_sub)
 
     # create feature matrix from the model
     if not exclude_comp_from_mean_cov: #if we don't care that our comparison is within the mean, then we can compute this one time
@@ -421,8 +421,8 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
             if verbosity >=2:
                 print(f"Feature: {feature_name}")
             # try to be flexible for identifying the individual comparison file, this is not ideal for all cases
-            full_comp_path_fname = feature_in_dir + subject_id + "/" + "*" + feature_name + "*" + suffix_name_comp
-            # print(full_comp_path_fname)
+            full_comp_path_fname = os.path.join(os.path.join(feature_in_dir, subject_id), "*" + feature_name + "*" + suffix_name_comp)
+            print(f'-- Full comp path name identified as: {full_comp_path_fname}')
             full_comp_path_fname = glob.glob(full_comp_path_fname)
             if len(full_comp_path_fname) == 1:
                 full_comp_path_fname = full_comp_path_fname[0]
@@ -441,17 +441,16 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
         else:  # everything is OK! lets do the comparison!
             c_f_mat, _, sub_mat_mask = feature_gen(comp_image_fname_list, mask_image_fname=mask_f,mask_image=mask_img,
                                                    mask_threshold=mask_threshold)  # extract features from model
-
             if idx == 0:
                 if exclude_comp_from_mean_cov: #we have not defined the output matrices yet in this case, so define here
                     if return_raw:
-                        all_feat = np.zeros((sub_mat_mask.shape[0],len(comp_image_fname_list),len(subject_ids)))
-                        raw_dist = np.zeros((sub_mat_mask.shape[0],sub_mat_mask.shape[1],len(subject_ids)))
-                        all_mask = np.zeros((sub_mat_mask.shape[0],len(subject_ids)))
+                        all_feat = np.zeros((c_f_mat.shape[0],len(comp_image_fname_list),len(subject_ids)))
+                        raw_dist = np.zeros((c_f_mat.shape[0],c_f_mat.shape[1],len(subject_ids)))
+                        all_mask = np.zeros((c_f_mat.shape[0],len(subject_ids)))
                     else:
-                        all_feat = np.zeros((sub_mat_mask.shape[0],len(comp_image_fname_list),len(subject_ids)))
-                        raw_dist = np.zeros((sub_mat_mask.shape[0],len(subject_ids)))
-                        all_mask = np.zeros((sub_mat_mask.shape[0],len(subject_ids)))
+                        all_feat = np.zeros((c_f_mat.shape[0],len(comp_image_fname_list),len(subject_ids)))
+                        raw_dist = np.zeros((c_f_mat.shape[0],len(subject_ids)))
+                        all_mask = np.zeros((c_f_mat.shape[0],len(subject_ids)))
             all_feat[..., idx] = c_f_mat
             all_mask[..., idx] = sub_mat_mask
             if verbosity >=1:
@@ -482,7 +481,7 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
 
 def dist_plot(all_dist, all_mask, subject_ids, feat_sub=[], save_results=True, out_dir=None, mask_f=None, mask_img=None,
               coordinate=(-10, -50, 10), vmin=None, vmax=5, hist_tr=100, nobin=100):
-    ''''
+    '''
      Plots the mean of all subjects' D2 maps and the histogram of D2 values. 
      It also saves all the subjects' D2 maps alongside the mean D2 map to the result directory. 
      The naming format of the folder it creates in the result directory depends on the features that were excluded during calculation and on the number of subjects used. e.g. if folder's name is "results_without_MD_18", it means we had 18 subjects and we didn't use MD in the D2 calculation.
