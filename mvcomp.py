@@ -383,7 +383,10 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
         subject_ids = subject_list(feature_in_dir, ex_subjects=exclude_subject_ids)
 
     # Create a list of the features from the reference. This list contains the location address of the features.
-    model_feature_image_fname_list, model_feature_list = feature_list(model_dir, suffix_name_model, feat_sub)
+    if model_dir is not None:
+        model_feature_image_fname_list, model_feature_list = feature_list(model_dir, suffix_name_model, feat_sub)
+    else:
+        model_feature_image_fname_list, model_feature_list = feature_list(f"{feature_in_dir}/{subject_ids[0]}/", suffix_name_model, feat_sub)
 
     # create feature matrix from the model
     if not exclude_comp_from_mean_cov: #if we don't care that our comparison is within the mean, then we can compute this one time
