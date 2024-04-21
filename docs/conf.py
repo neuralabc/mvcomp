@@ -6,6 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import sphinx_rtd_theme
 project = 'MVComp'
 copyright = '2024, NeuralABC, steelec, stremblay18, zklsmr'
 author = 'NeuralABC, steelec, stremblay18, zklsmr'
@@ -20,15 +21,12 @@ templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-#html_theme = 'alabaster'
-#html_static_path = ['_static']
+# html_theme = 'alabaster'
+# html_static_path = ['_static']
 
-
-import sphinx_rtd_theme
 
 html_theme = 'sphinx_rtd_theme'
 
