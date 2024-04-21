@@ -345,7 +345,7 @@ def subject_list(root_dir, ex_subjects=[]):
 
 def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclude_comp_from_mean_cov=True,
                suffix_name_model=".nii.gz", mask_f=None, mask_img=None, verbosity=1,
-               mask_threshold=0.9, subject_ids=None, exclude_subject_ids=None, feat_sub=[], return_raw=False):
+               mask_threshold=0.9, subject_ids=[], exclude_subject_ids=[], feat_sub=[], return_raw=False):
     """
     This function is desiged to loop over a list of subjects and return a D2 array of size (number of voxels) x (number of subjects) with the option of returning raw distances. 
 
@@ -378,18 +378,20 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
             print("You must either set a model directory (model_dir) or iteratively compute leave one out models on the fly with set exclude_comp_from_mean_cov=True")
             print("Exiting")
             return 0
+            
     # Create subject_ids list from input directory if it is not in the input args
-    if subject_ids is None:
-        subject_ids = subject_list(feature_in_dir, ex_subjects=exclude_subject_ids)
+    if len(subject_ids) == 0:
+        if exclude_subject_ids is None:
+            subject_ids = subject_list(feature_in_dir)
+        else:
+            subject_ids = subject_list(feature_in_dir, ex_subjects=exclude_subject_ids)
 
-    # Create a list of the features from the reference. This list contains the location address of the features.
+    print(subject_ids)
+    # if a model is to be used
+    # Create a list of the features from the model. This list contains the location address of the features.
     if model_dir is not None:
         model_feature_image_fname_list, model_feature_list = feature_list(model_dir, suffix_name_model, feat_sub)
-    else:
-        model_feature_image_fname_list, model_feature_list = feature_list(f"{feature_in_dir}/{subject_ids[0]}/", suffix_name_comp, feat_sub)
-
-    # create feature matrix from the model
-    if not exclude_comp_from_mean_cov: #if we don't care that our comparison is within the mean, then we can compute this one time
+        # We don't care that our comparison is within the mean, then we can compute this one time
         m_f_mat, mask_img, mat_mask = feature_gen(model_feature_image_fname_list,
                                                 mask_image_fname=mask_f,
                                                 mask_image=mask_img,
@@ -409,6 +411,13 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
             all_feat = np.zeros((m_f_mat.shape + (len(subject_ids),)))
             raw_dist = np.zeros((m_f_mat.shape[0], len(subject_ids)))
             all_mask = np.zeros((m_f_mat.shape[0], len(subject_ids)))
+    
+    # if there's no model, just grab feature names from the first subject
+    else:
+        model_feature_image_fname_list, model_feature_list = feature_list(f"{feature_in_dir}/{subject_ids[0]}/", suffix_name_comp, feat_sub)
+
+    # create feature matrix from the model
+
 
     # loop over individuals, compute D2
     for idx, subject_id in enumerate(subject_ids):
@@ -421,16 +430,22 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
             if verbosity >=2:
                 print(f"Feature: {feature_name}")
             # try to be flexible for identifying the individual comparison file, this is not ideal for all cases
+
             full_comp_path_fname = os.path.join(os.path.join(feature_in_dir, subject_id), "*" + feature_name + "*" + suffix_name_comp)
-            print(f'-- Full comp path name identified as: {full_comp_path_fname}')
+            if verbosity >=2:
+                print(f'-- Full comp path name identified as: {full_comp_path_fname}')
             full_comp_path_fname = glob.glob(full_comp_path_fname)
+            
             if len(full_comp_path_fname) == 1:
                 full_comp_path_fname = full_comp_path_fname[0]
             else:
                 print(f"File does not exist:\n{full_comp_path_fname}")
                 break
+            
             comp_image_fname_list.append(full_comp_path_fname)
             comp_f_list.append(feature_name)
+
+            # comp_image_fname_list has all path to all subjects features, comp_f_list has the names of features
 
         # now we check to see if our metrics are going to be in the same order
         if not (model_feature_list == comp_f_list):
@@ -438,25 +453,27 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
                 ">>You do not have exactly the same metric names for your model and comparison images (stopping)<<\n\tmodel:\t{}\n\tcomp:\t{}".format(
                     model_feature_list, comp_f_list))
             break
+        
         else:  # everything is OK! lets do the comparison!
             c_f_mat, _, sub_mat_mask = feature_gen(comp_image_fname_list, mask_image_fname=mask_f,mask_image=mask_img,
                                                    mask_threshold=mask_threshold)  # extract features from model
             if idx == 0:
                 if exclude_comp_from_mean_cov: #we have not defined the output matrices yet in this case, so define here
+                    all_feat = np.zeros((c_f_mat.shape[0],len(comp_image_fname_list),len(subject_ids)))
+                    all_mask = np.zeros((c_f_mat.shape[0],len(subject_ids)))
+
                     if return_raw:
-                        all_feat = np.zeros((c_f_mat.shape[0],len(comp_image_fname_list),len(subject_ids)))
                         raw_dist = np.zeros((c_f_mat.shape[0],c_f_mat.shape[1],len(subject_ids)))
-                        all_mask = np.zeros((c_f_mat.shape[0],len(subject_ids)))
                     else:
-                        all_feat = np.zeros((c_f_mat.shape[0],len(comp_image_fname_list),len(subject_ids)))
                         raw_dist = np.zeros((c_f_mat.shape[0],len(subject_ids)))
-                        all_mask = np.zeros((c_f_mat.shape[0],len(subject_ids)))
+
             all_feat[..., idx] = c_f_mat
             all_mask[..., idx] = sub_mat_mask
             if verbosity >=1:
                 print("subject {} feature matrix creation in {:.3} s".format(subject_id, time.time()-st))
 
-    num_subs = all_feat.shape[-1]
+
+    num_subs = len(subject_ids)
     st = time.time()
     for idx in range(num_subs):  # for each subject
         if exclude_comp_from_mean_cov: #we remove the subject that is going to be compared from the mean (reference) and pinv_s calculation so that they are independent
