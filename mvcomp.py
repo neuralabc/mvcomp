@@ -416,8 +416,9 @@ def model_comp(feature_in_dir,
                exclude_subject_ids=[],
                feat_sub=[],
                return_raw=False):
-    """
-    This function is desiged to loop over a list of subjects and 
+    
+    '''
+    This function is desiged to loop over a list of subjects and
     return a D2 array of size (number of voxels) x (number of subjects) 
     with the option of returning raw distances. 
 
@@ -450,7 +451,7 @@ def model_comp(feature_in_dir,
         'raw_dist' (numpy.ndarray): if return_raw=True. 
             3D array of size (number of voxels) x (number of features) x (number of subjects)
             that contains the voxel-wise raw distances for each feature}
-    """
+    '''
 
     # If there is no reference directory (model_dir), then we should have set the exclude_comp_from_mean_cov to True
     if model_dir is None:
@@ -618,7 +619,7 @@ def dist_plot(all_dist,
                 hist_tr=100,
                 nobin=100):
     '''
-     Plots the mean of all subjects' D2 maps and the histogram of D2 values. 
+    Plots the mean of all subjects' D2 maps and the histogram of D2 values. 
      It also saves all the subjects' D2 maps alongside the mean D2 map to the result directory. 
      The naming format of the folder it creates in the result directory 
      depends on the features that were excluded during calculation 
