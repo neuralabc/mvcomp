@@ -69,6 +69,8 @@ The output `result` is a dictionary containing a D2 matrix (`all_dist`) of size 
 Data organization
 ----------------------------
 
+There are no specific requirements in terms of data preprocessing, except that the images should be in a common space (e.g., group template for analysis between subjects) prior to using MVComp. D2 can be computed from any data type.
+
 The data must be organized as such:
 
 Subjects' directories are inside feature_in_dir (e.g., /my_project/processed_maps/) and their folder names consists in numbers only (e.g., 001, 002, etc.). Ensure your feature maps have consistent file names such that the file prefix is the name of the MRI measure (e.g., FA) and the suffix is the same across all features (e.g., suffix_name_comp = "_warped_to_group.nii.gz"). The MRI maps that will be used as reference should be a group average of all subjects (or of subjects of a control group) for each MRI measure. These maps should have the same prefix as the feature maps and they should be contained in `model_dir`.   
