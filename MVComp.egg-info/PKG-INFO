@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: MVComp
+Version: 0.9.3
+Summary: Multivariate Comparisons using Whole-brain and ROI-derived Metrics from MRI 
+Author: NeuralABC
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: seaborn
+Requires-Dist: matplotlib
+Requires-Dist: scikit-learn
+Requires-Dist: nibabel
+Requires-Dist: nilearn
