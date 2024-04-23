@@ -7,3 +7,4 @@
 
     FirstLevel/index.rst
     UserGuide/index.rst
+    Contributing/index.rst

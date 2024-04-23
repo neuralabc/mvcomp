@@ -49,12 +49,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#data-organization">Data organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reference-us">Reference Us!</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#having-issues-or-need-help">Having issues or need help?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#contribute">Contribute</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#license-information">License Information</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../UserGuide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Contributing/index.html">Contributing to MVComp</a></li>
 </ul>
 
         </div>
@@ -100,15 +99,18 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 <p>You will also find detailed steps for different use cases here: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html</a></p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<p>To install MVComp, you can clone the repository from GitHub and add the path to the package in your python script:</p>
-<p>to clone:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/neuralabc/mvcomp.git
+<p>MVComp can be installed directly using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>mvcomp
 </pre></div>
 </div>
-<p>and in your python script:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;path/to/mvcomp&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">mvcomp</span>
+<p>Alternatively, you can install MVComp from the source code by clonning the repository from GitHub</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/neuralabc/mvcomp.git
+<span class="nb">cd</span><span class="w"> </span>mvcomp
+pip<span class="w"> </span>intsall<span class="w"> </span>.
+</pre></div>
+</div>
+<p>After installation, you can import the package in your python script</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mvcomp</span>
 </pre></div>
 </div>
 </section>
@@ -126,6 +128,16 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </div>
 <p>Here, <cite>feature_in_dir</cite> is the path to the directory containing the MRI feature maps of all subjects and <cite>model_dir</cite> is the path to the directory containing the reference maps (to which each subject will be compared). You will also need to provide a mask to which you can apply a threshold using <cite>mask_threshold</cite>. To implement the leave-one-subject-out approach so that the subject under evaluation is excluded from D2 calculation, set <cite>exclude_comp_from_mean_cov</cite> to True. In this case, <cite>model_dir</cite> is not needed.
 The output <cite>result</cite> is a dictionary containing a D2 matrix (<cite>all_dist</cite>) of size number of voxels x number of subjects.</p>
+<dl class="simple">
+<dt>Check out some example notebooks here:</dt><dd><p><a class="reference external" href="https://github.com/neuralabc/mvcomp/tree/main/examples">https://github.com/neuralabc/mvcomp/tree/main/examples</a></p>
+</dd>
+</dl>
+<p>There are 4 use cases currently illustrated in these examples:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://github.com/neuralabc/mvcomp/blob/main/examples/Example1_Voxel-wise_D2_subj_to_group_MVComp.ipynb">Comparing a subject to a reference group</a></p></li>
+<li><p><a class="reference external" href="https://github.com/neuralabc/mvcomp/blob/main/examples/Example2_Spatial_D2_subj_to_group_MVComp.ipynb">Comparing subjects based on spatial MRI metrics (i.e. tractwise multimodal features)</a></p></li>
+<li><p><a class="reference external" href="https://github.com/neuralabc/mvcomp/blob/main/examples/Example3_voxelvoxel_D2_within_subj_MVComp.ipynb">Comparing a subject to themselves (i.e. within-subject comparison)</a></p></li>
+</ol>
 </section>
 <section id="data-organization">
 <h2>Data organization<a class="headerlink" href="#data-organization" title="Link to this heading">¶</a></h2>
@@ -164,22 +176,6 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </pre></div>
 </div>
 </div></blockquote>
-</section>
-<section id="having-issues-or-need-help">
-<h2>Having issues or need help?<a class="headerlink" href="#having-issues-or-need-help" title="Link to this heading">¶</a></h2>
-<dl class="simple">
-<dt>If you have any issues or need help with the MVComp package, please open an issue on the GitHub repository:</dt><dd><p>github.com/neuralabc/mvcomp/issues</p>
-</dd>
-<dt>or email us at:</dt><dd><p><a class="reference external" href="mailto:zaki&#46;alasmar&#37;&#52;&#48;mail&#46;concordia&#46;ca">zaki<span>&#46;</span>alasmar<span>&#64;</span>mail<span>&#46;</span>concordia<span>&#46;</span>ca</a></p>
-</dd>
-</dl>
-</section>
-<section id="contribute">
-<h2>Contribute<a class="headerlink" href="#contribute" title="Link to this heading">¶</a></h2>
-<dl class="simple">
-<dt>If you would like to contribute to the MVComp package, please open an issue or a pull request on the GitHub repository:</dt><dd><p><a class="reference external" href="https://github.com/neuralabc/mvcomp.git">https://github.com/neuralabc/mvcomp.git</a></p>
-</dd>
-</dl>
 </section>
 <section id="license-information">
 <h2>License Information<a class="headerlink" href="#license-information" title="Link to this heading">¶</a></h2>

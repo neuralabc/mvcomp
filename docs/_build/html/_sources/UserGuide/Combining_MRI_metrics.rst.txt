@@ -5,7 +5,7 @@ Here the reference would be defined as the voxel-wise group average for each MRI
 
 To ensure that each subject’s data will not bias their D2 values in single sample designs (i.e., where the entire sample is used as a reference) and to allow the evaluation of controls in two-sample designs, a leave-one-subject-out approach is possible. In this way, the subject under evaluation is excluded from the group mean (reference) and covariance matrix prior to calculating D2. To implement the leave-one-subject-out approach, skip to the `model_comp` function and set the `exclude_comp_from_mean_cov` option to True.
 
-For details on how to organize data see: https://mvcomp.readthedocs.io/en/latest/FirstLevel/index.html#quick-start
+For details on how to organize data see: https://mvcomp.readthedocs.io/en/latest/FirstLevel/index.html#data-organization
 
 - **compute_average**: To compute the group average maps of each metric (will serve as the reference). 
     Args:
