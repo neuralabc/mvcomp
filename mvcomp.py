@@ -60,8 +60,8 @@ def compute_average(ids, in_dir, out_dir,features=[],feature_suffix=".nii.gz", v
         _model_img = nb.Nifti2Image(_model_data, _imgs.affine, _imgs.header)
         
         if verbose > 0:
-            print(f"saving to {out_dir}/{feature_fname}_{_imgs_data.shape[3]}average.nii.gz")
-        nb.save(_model_img, f"{out_dir}/{feature_fname}_{_imgs_data.shape[3]}average.nii.gz")
+            print(f"saving to {out_dir}{os.sep}{feature_fname}_{_imgs_data.shape[3]}average.nii.gz")
+        nb.save(_model_img, f"{out_dir}{os.sep}{feature_fname}_{_imgs_data.shape[3]}average.nii.gz")
 
         print("------------------------------")
     print(f"averages saved to {out_dir}")
@@ -124,8 +124,8 @@ def compute_average_simplified(model_feature_images_fname_list, out_dir, model_f
         _model_img = nb.Nifti2Image(_model_data, _imgs.affine, _imgs.header)
         
         if verbose > 0:
-            print(f"saving to {out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz")
-        full_fname = f"{out_dir}/{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz"
+            print(f"saving to {out_dir}{os.sep}{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz")
+        full_fname = f"{out_dir}{os.sep}{feature_names[_idx]}_{_imgs_data.shape[3]}_average.nii.gz"
         nb.save(_model_img, full_fname)
         model_feature_average_images_fname_list.append(full_fname)
         print("------------------------------")
@@ -415,7 +415,7 @@ def model_comp(feature_in_dir, model_dir=None, suffix_name_comp=".nii.gz", exclu
     
     # if there's no model, just grab feature names from the first subject
     else:
-        model_feature_image_fname_list, model_feature_list = feature_list(f"{feature_in_dir}/{subject_ids[0]}/", suffix_name_comp, feat_sub)
+        model_feature_image_fname_list, model_feature_list = feature_list(f"{feature_in_dir}{os.sep}{subject_ids[0]}{os.sep}", suffix_name_comp, feat_sub)
 
     # create feature matrix from the model
 
@@ -560,7 +560,7 @@ def dist_plot(all_dist, all_mask, subject_ids, feat_sub=[], save_results=True, o
 
     if save_results:
         if out_dir is None:
-            result_dir = '../'
+            result_dir = f'..{os.sep}'
         else:
             result_dir = out_dir
 
@@ -577,7 +577,7 @@ def dist_plot(all_dist, all_mask, subject_ids, feat_sub=[], save_results=True, o
                 os.makedirs(result_dir + "results_with_allfeatures" + "_" + str(len(subject_ids)))
             result_dir += "results_with_allfeatures" + "_" + str(len(subject_ids))
 
-        nb.save(img_out, result_dir + "/mean" + str(len(subject_ids)) + "subjects.nii.gz")
+        nb.save(img_out, result_dir + os.sep + "mean" + str(len(subject_ids)) + "subjects.nii.gz")
 
         for idx, subject_id in enumerate(subject_ids):
             d_out = all_dist[:, idx]
@@ -587,7 +587,7 @@ def dist_plot(all_dist, all_mask, subject_ids, feat_sub=[], save_results=True, o
 
             img_out = nb.Nifti1Image(mat_out, affine=mask_img.affine, header=mask_img.header)
             img_out.update_header()
-            nb.save(img_out, result_dir + "/xxx_" + subject_id + ".nii.gz")
+            nb.save(img_out, result_dir + os.sep + "xxx_" + subject_id + ".nii.gz")
         print('data has been saved to output directory: {}'.format(result_dir))
 
 def model_comp_simplified(comp_images_fname_list,subject_ids=None,model_feature_list=None,model_feature_image_fname_list=None, 
