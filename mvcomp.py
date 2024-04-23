@@ -168,6 +168,9 @@ def feature_list(feature_in_dir, suffix_name, remove_list=[]):
         2. f_list (List of strings): A list of features names.
 
     """
+    if remove_list is None:
+        remove_list = [] #recast to simplify checks prior to removal
+
     feature_image_fname_list = mysort(
         glob.glob(os.path.join(feature_in_dir, "*" + suffix_name)))
     f_list = [os.path.basename(mod).replace(suffix_name, "")
