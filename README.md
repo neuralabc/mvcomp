@@ -13,6 +13,8 @@ Reference:
 Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (under review) MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics (submitted)
 ```
 
+More details on installation and a full user guide can be found here: https://mvcomp.readthedocs.io/en/latest/ 
+
 # Mahalanobis d
 
 The Mahalanobis distance, or D2, is defined as the multivariate distance between a point and a distribution in which covariance between features (e.g., imaging metrics) is accounted for (Mahalanobis, 1936). D2 is thus similar to a z-score, but applicable to multivariate data because when computing D2, the shape of the distribution is taken into account such that the values that are more probable have lower distance values (Taylor et al., 2020). In other words, D2 tells us how improbable a certain combination of features is. For example, because height and weight are highly correlated, very tall individuals that have a very low weight would appear outside of the distribution and would have a high D2 value. Relationships between variables are thus accounted for in the D2 framework by dividing the Euclidean distance by the covariance matrix, which also scales the variables to have unit variance.
