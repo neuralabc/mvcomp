@@ -150,9 +150,10 @@ def feature_list(feature_in_dir, suffix_name, remove_list=[]):
     feature_image_fname_list = mysort(glob.glob(os.path.join(feature_in_dir, "*" + suffix_name)))
     f_list = [os.path.basename(mod).replace(suffix_name, "") for mod in feature_image_fname_list]
 
-    for i, rem in enumerate(remove_list):
-        feature_image_fname_list.remove(feature_image_fname_list[f_list.index(rem)])
-        f_list.remove(rem)
+    if len(remove_list)>0:
+        for i, rem in enumerate(remove_list):
+            feature_image_fname_list.remove(feature_image_fname_list[f_list.index(rem)])
+            f_list.remove(rem)
 
     print("Features are : ", f_list)
 
