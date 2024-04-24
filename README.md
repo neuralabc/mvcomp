@@ -2,7 +2,7 @@
 
 **Authors:** Stefanie Tremblay @stremblay18, Zaki Alasmar @zklsmr, Amir Pirhadi @amirpirhadi, Felix Carbonell, Yasser Iturria-Medina, Claudine Gauthier, Christopher Steele @steelec
 
-A set of functions to compute Mahalanobis D (D**2) on multimodal MRI images in a group of individuals in comparison to a reference group or within a single individual.
+A set of functions to compute Mahalanobis D (D<sup>2</sup> / D2) on multimodal MRI images in a group of individuals in comparison to a reference group or within a single individual.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10713027.svg)](https://doi.org/10.5281/zenodo.10713027)
 
