@@ -69,6 +69,8 @@ The output `result` is a dictionary containing a D2 matrix (`all_dist`) of size 
 Data organization
 ----------------------------
 
+There are no specific requirements for data processing, but images should be in the same space (e.g., study-specific group space or other common template) prior to running MVComp. If a within-subject analysis is conducted, images should be registered across modalities. MVComp can be used with any type of data (e.g., structural, functional, metabolic, etc.).
+
 The data must be organized as such:
 
 Subjects' directories are inside feature_in_dir (e.g., /my_project/processed_maps/) and their folder names consists in numbers only (e.g., 001, 002, etc.). Ensure your feature maps have consistent file names such that the file prefix is the name of the MRI measure (e.g., FA) and the suffix is the same across all features (e.g., suffix_name_comp = "_warped_to_group.nii.gz"). The MRI maps that will be used as reference should be a group average of all subjects (or of subjects of a control group) for each MRI measure. These maps should have the same prefix as the feature maps and they should be contained in `model_dir`.   
