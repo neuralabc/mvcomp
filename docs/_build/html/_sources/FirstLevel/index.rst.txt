@@ -23,7 +23,7 @@ For a detailed description of how D\ :sup:`2` can be applied to neuroimaging dat
         Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
         BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 
-You will also find detailed steps for different use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html 
+You will also find detailed steps different use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html 
 
 =======================================
 ----------------------------
@@ -47,7 +47,13 @@ After installation, you can import the package in your python script
 
 .. code-block:: python
 
-    import mvcomp
+    import mvcomp as mvc
+
+
+
+
+After installation, please run the three examples in the `./examples/` subdirectory to confirm that your installation is functioning correctly. 
+As necessary, please open an `issue on github <https://github.com/neuralabc/mvcomp/issues>`_ to report any issues that may arise.
 
 
 
@@ -72,7 +78,7 @@ The output `result` is a dictionary containing a D2 matrix (`all_dist`) of size 
 Check out some example notebooks here:
     https://github.com/neuralabc/mvcomp/tree/main/examples
 
-There are 4 use cases currently illustrated in these examples:
+These use cases currently illustrated as runnable examples:
 
 1. `Comparing a subject to a reference group <https://github.com/neuralabc/mvcomp/blob/main/examples/Example1_Voxel-wise_D2_subj_to_group_MVComp.ipynb>`_
 2. `Comparing subjects based on spatial MRI metrics (i.e. tractwise multimodal features) <https://github.com/neuralabc/mvcomp/blob/main/examples/Example2_Spatial_D2_subj_to_group_MVComp.ipynb>`_

@@ -96,7 +96,7 @@ BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 </pre></div>
 </div>
 </div></blockquote>
-<p>You will also find detailed steps for different use cases here: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html</a></p>
+<p>You will also find detailed steps different use cases here: <a class="reference external" href="https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html">https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html</a></p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
 <p>MVComp can be installed directly using pip:</p>
@@ -110,9 +110,11 @@ pip<span class="w"> </span>intsall<span class="w"> </span>.
 </pre></div>
 </div>
 <p>After installation, you can import the package in your python script</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mvcomp</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mvcomp</span> <span class="k">as</span> <span class="nn">mvc</span>
 </pre></div>
 </div>
+<p>After installation, please run the three examples in the <cite>./examples/</cite> subdirectory to confirm that your installation is functioning correctly.
+As necessary, please open an <a class="reference external" href="https://github.com/neuralabc/mvcomp/issues">issue on github</a> to report any issues that may arise.</p>
 </section>
 <section id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
@@ -132,7 +134,7 @@ The output <cite>result</cite> is a dictionary containing a D2 matrix (<cite>all
 <dt>Check out some example notebooks here:</dt><dd><p><a class="reference external" href="https://github.com/neuralabc/mvcomp/tree/main/examples">https://github.com/neuralabc/mvcomp/tree/main/examples</a></p>
 </dd>
 </dl>
-<p>There are 4 use cases currently illustrated in these examples:</p>
+<p>These use cases currently illustrated as runnable examples:</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://github.com/neuralabc/mvcomp/blob/main/examples/Example1_Voxel-wise_D2_subj_to_group_MVComp.ipynb">Comparing a subject to a reference group</a></p></li>
 <li><p><a class="reference external" href="https://github.com/neuralabc/mvcomp/blob/main/examples/Example2_Spatial_D2_subj_to_group_MVComp.ipynb">Comparing subjects based on spatial MRI metrics (i.e. tractwise multimodal features)</a></p></li>

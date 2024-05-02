@@ -47,7 +47,13 @@ After installation, you can import the package in your python script
 
 .. code-block:: python
 
-    import mvcomp
+    import mvcomp as mvc
+
+
+
+
+After installation, please run the three examples in the `./examples/` subdirectory to confirm that your installation is functioning correctly. 
+As necessary, please open an `issue on github <https://github.com/neuralabc/mvcomp/issues>`_ to report any issues that may arise.
 
 
 
