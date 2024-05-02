@@ -2,7 +2,8 @@ from .mvcomp import mysort, feature_gen, norm_covar_inv, mah_dist_feat_mat, mah_
 from .mvcomp import model_comp_simplified, compute_average_simplified
 from .version import __version__
 
-# initial hack to not import optional plotting functions if necessary packages do not exist
+# initial hack to not import optional plotting functions if necessary
+# packages do not exist
 try:
     from .plotting import *
 except ImportError:
