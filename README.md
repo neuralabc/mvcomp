@@ -6,6 +6,8 @@ A set of functions to compute Mahalanobis D (D**2) on multimodal MRI images in a
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10713027.svg)](https://doi.org/10.5281/zenodo.10713027)
 
+[![Documentation Status](https://readthedocs.org/projects/mvcomp/badge/?version=latest)](https://mvcomp.readthedocs.io/en/latest/?badge=latest)
+
 [Biorxiv link](https://www.biorxiv.org/content/10.1101/2024.02.27.582381v1)
 
 Reference:
