@@ -23,27 +23,37 @@ For a detailed description of how D\ :sup:`2` can be applied to neuroimaging dat
         Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
         BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 
-You will also find detailed steps for different use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html 
+You will also find detailed steps different use cases here: https://mvcomp.readthedocs.io/en/latest/UserGuide/index.html 
 
 =======================================
 ----------------------------
 Installation
 ----------------------------
-To install MVComp, you can clone the repository from GitHub and add the path to the package in your python script:
+MVComp can be installed directly using pip:
 
-to clone: 
+.. code-block:: bash
+
+    pip install mvcomp
+
+Alternatively, you can install MVComp from the source code by clonning the repository from GitHub 
 
 .. code-block:: bash
 
     git clone https://github.com/neuralabc/mvcomp.git
+    cd mvcomp
+    pip intsall .
 
-and in your python script:
+After installation, you can import the package in your python script
 
 .. code-block:: python
 
-    import sys
-    sys.path.append('path/to/mvcomp')
-    import mvcomp
+    import mvcomp as mvc
+
+
+
+
+After installation, please run the three examples in the `./examples/` subdirectory to confirm that your installation is functioning correctly. 
+As necessary, please open an `issue on github <https://github.com/neuralabc/mvcomp/issues>`_ to report any issues that may arise.
 
 
 
@@ -64,6 +74,15 @@ Here's an example of how to use MVComp if your data is ready and you wish to com
 
 Here, `feature_in_dir` is the path to the directory containing the MRI feature maps of all subjects and `model_dir` is the path to the directory containing the reference maps (to which each subject will be compared). You will also need to provide a mask to which you can apply a threshold using `mask_threshold`. To implement the leave-one-subject-out approach so that the subject under evaluation is excluded from D2 calculation, set `exclude_comp_from_mean_cov` to True. In this case, `model_dir` is not needed.
 The output `result` is a dictionary containing a D2 matrix (`all_dist`) of size number of voxels x number of subjects.
+
+Check out some example notebooks here:
+    https://github.com/neuralabc/mvcomp/tree/main/examples
+
+These use cases currently illustrated as runnable examples:
+
+1. `Comparing a subject to a reference group <https://github.com/neuralabc/mvcomp/blob/main/examples/Example1_Voxel-wise_D2_subj_to_group_MVComp.ipynb>`_
+2. `Comparing subjects based on spatial MRI metrics (i.e. tractwise multimodal features) <https://github.com/neuralabc/mvcomp/blob/main/examples/Example2_Spatial_D2_subj_to_group_MVComp.ipynb>`_
+3. `Comparing a subject to themselves (i.e. within-subject comparison) <https://github.com/neuralabc/mvcomp/blob/main/examples/Example3_voxelvoxel_D2_within_subj_MVComp.ipynb>`_
 
 
 Data organization
@@ -108,19 +127,6 @@ If you use the MVComp package in your research, please cite the following paper:
         Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (2024). MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics.
         BioRxiv, https://doi.org/10.1101/2024.02.27.582381.
 
-
-Having issues or need help?
--------------------------------
-If you have any issues or need help with the MVComp package, please open an issue on the GitHub repository:
-    github.com/neuralabc/mvcomp/issues
-
-or email us at:
-    zaki.alasmar@mail.concordia.ca
-
-Contribute  
-----------------------------
-If you would like to contribute to the MVComp package, please open an issue or a pull request on the GitHub repository:
-    https://github.com/neuralabc/mvcomp.git
 
 
 License Information
