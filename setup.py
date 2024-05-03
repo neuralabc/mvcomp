@@ -1,11 +1,12 @@
-from setuptools import setup, find_packages
-
+from setuptools import setup
 setup(
     name='MVComp',
-    version='0.9.4',
+    version='0.9.5',
     author='NeuralABC',
     description='Multivariate Comparisons using Whole-brain and ROI-derived Metrics from MRI ',
-    packages=find_packages(),
+    url='https://github.com/neuralabc/mvcomp',
+    license='Apache 2.0',
+    py_modules=['mvcomp', 'plotting', 'utils'],
     install_requires=[
         'numpy',
         'pandas',
