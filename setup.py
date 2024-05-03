@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='MVComp',
-    version='0.9.3',
+    version='0.9.4',
     author='NeuralABC',
     description='Multivariate Comparisons using Whole-brain and ROI-derived Metrics from MRI ',
     packages=find_packages(),
