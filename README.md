@@ -1,19 +1,19 @@
 # Multivariate Comparisons (MVComp)
+[https://doi.org/10.52294/001c.118427](https://doi.org/10.52294/001c.118427)
 
 **Authors:** Stefanie Tremblay @stremblay18, Zaki Alasmar @zklsmr, Amir Pirhadi @amirpirhadi, Felix Carbonell, Yasser Iturria-Medina, Claudine Gauthier, Christopher Steele @steelec
 
 A set of functions to compute Mahalanobis D (D<sup>2</sup> / D2) on multimodal MRI images in a group of individuals in comparison to a reference group or within a single individual.
 
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10713027.svg)](https://doi.org/10.5281/zenodo.10713027)
 
 [![Documentation Status](https://readthedocs.org/projects/mvcomp/badge/?version=latest)](https://mvcomp.readthedocs.io/en/latest/?badge=latest)
 
-[Biorxiv link](https://www.biorxiv.org/content/10.1101/2024.02.27.582381v1)
+Please cite:
+[mvComp Manuscript](https://doi.org/10.52294/001c.118427)
 
-Reference:
-```
-Tremblay, SA, Alasmar, Z, Pirhadi, A, Carbonell, F, Iturria-Medina, Y, Gauthier, C, Steele, CJ, (under revision) MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across metrics (submitted)
-```
+```Tremblay SA, Alasmar Z, Pirhadi A, Carbonell F, Iturria-Medina Y, Gauthier CJ, Steele CJ. 2024. MVComp toolbox: MultiVariate Comparisons of brain MRI features accounting for common information across measures. Aperture Neuro. 4. https://doi.org/10.52294/001c.118427```
 
 Please refer to [mvcomp.readthedocs.io](https://mvcomp.readthedocs.io/en/latest/) for installation and usage details.
 
